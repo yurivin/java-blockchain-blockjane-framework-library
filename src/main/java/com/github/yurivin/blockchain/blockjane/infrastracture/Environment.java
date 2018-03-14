@@ -8,5 +8,6 @@ public class Environment {
         this.hashAlgo = algo;
     }
     public final iAlgo hashAlgo;
+    public Blockchain blockchain;
 
 }

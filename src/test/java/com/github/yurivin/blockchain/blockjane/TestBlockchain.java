@@ -7,7 +7,7 @@ public class TestBlockchain {
 
     @Test
     public void mainTest() {
-        Blockchain blockchain = new Blockchain(new SHA256());
+        BlockJane blockJane = new BlockJane(new SHA256());
 
     }
 }

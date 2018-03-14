@@ -5,9 +5,9 @@ import com.github.yurivin.blockchain.blockjane.infrastracture.Environment;
 import lombok.Data;
 
 @Data
-public class Blockchain {
+public class BlockJane {
 
-    public Blockchain(iAlgo algo) {
+    public BlockJane(iAlgo algo) {
         env = new Environment(algo);
     }
 
