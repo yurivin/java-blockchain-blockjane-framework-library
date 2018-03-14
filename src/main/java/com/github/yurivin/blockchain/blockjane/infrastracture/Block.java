@@ -1,7 +1,9 @@
 package com.github.yurivin.blockchain.blockjane.infrastracture;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class Block {
 
     public Block(Environment env, String data, String previousHash) {
@@ -19,7 +21,7 @@ public class Block {
 
     //Block Constructor.
 
-    public String calculateHash() {
+    private String calculateHash() {
         String calculatedHash = env.hashAlgo.apply(
                 previousHash +
                         Long.toString(timeStamp) +

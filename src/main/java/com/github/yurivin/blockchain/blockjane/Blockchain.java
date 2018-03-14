@@ -13,6 +13,9 @@ public class Blockchain {
 
     private final Environment env;
 
+    public void run() {
+
+    }
 
 
 
