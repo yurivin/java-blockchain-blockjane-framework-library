@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Block {
 
-    public Block(Environment env, long timeStamp, String data, String previousHash, String hash) {
+    public Block(Environment env, String data, String previousHash) {
         this.env = env;
-        this.timeStamp = timeStamp;
+        this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousHash = previousHash;
-        this.hash = hash;
+        this.hash = calculateHash();
     }
     private final String hash;
     private final String previousHash;
@@ -20,11 +20,11 @@ public class Block {
     //Block Constructor.
 
     public String calculateHash() {
-        String calculatedhash = env.hashAlgo.apply(
+        String calculatedHash = env.hashAlgo.apply(
                 previousHash +
                         Long.toString(timeStamp) +
                         data
         );
-        return calculatedhash;
+        return calculatedHash;
     }
 }
