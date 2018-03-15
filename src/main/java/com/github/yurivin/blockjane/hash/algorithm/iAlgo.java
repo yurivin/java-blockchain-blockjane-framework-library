@@ -1,4 +1,4 @@
-package com.github.yurivin.blockchain.blockjane.hash.algorithm;
+package com.github.yurivin.blockjane.hash.algorithm;
 
 public interface iAlgo {
 

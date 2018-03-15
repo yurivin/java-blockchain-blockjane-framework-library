@@ -1,4 +1,4 @@
-package com.github.yurivin.blockchain.blockjane.infrastracture;
+package com.github.yurivin.blockjane.infrastracture;
 
 public class GenesisBlock extends Block {
     /**
