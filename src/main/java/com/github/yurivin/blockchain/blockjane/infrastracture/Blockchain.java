@@ -3,7 +3,12 @@ package com.github.yurivin.blockchain.blockjane.infrastracture;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public interface Blockchain {
+public class Blockchain {
+
+    Environment env;
+    public Blockchain(Environment env) {
+        this.env = env;
+    }
 
     /**
      * Method to add block in to blockchain.
@@ -13,7 +18,9 @@ public interface Blockchain {
      * @param block
      * @return
      */
-    boolean addBlock(Block block);
+    public boolean addBlock(Block block) {
+
+    }
 
 
 }
