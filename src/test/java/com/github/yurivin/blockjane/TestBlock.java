@@ -1,11 +1,8 @@
 package com.github.yurivin.blockjane;
 
-import com.github.yurivin.blockjane.blockchain.DummyBlockchain;
-import com.github.yurivin.blockjane.hash.algorithm.SHA256;
 import com.github.yurivin.blockjane.infrastracture.Block;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 import com.github.yurivin.blockjane.infrastracture.GenesisBlock;
-import com.github.yurivin.blockjane.serializers.DummyCollectionSerializer;
 import org.junit.Assert;
 import org.junit.Test;
 

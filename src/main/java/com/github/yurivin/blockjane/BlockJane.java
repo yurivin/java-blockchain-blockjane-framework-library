@@ -1,27 +1,30 @@
 package com.github.yurivin.blockjane;
 
-import com.github.yurivin.blockjane.hash.algorithm.iAlgo;
+import com.github.yurivin.blockjane.infrastracture.Chaining;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.serializers.iBlockSerializer;
-import com.github.yurivin.blockjane.blockchain.iBlockchain;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @Data
+@Slf4j
 public class BlockJane {
 
-    private boolean isRuning;
+    private boolean running;
     public BlockJane(Environment env) {
+        if(env == null) {
+            throw new IllegalStateException("BlockJane environment should be not null");
+        }
         this.env = env;
     }
 
     private final Environment env;
 
     public void run() {
-        isRuning = true;
-        while(isRuning) {
-            if(!env.getBlockchain().newBlock());
-            throw new IllegalStateException("Node is broken. Can't create block");
-        }
+        running = true;
+        Thread chaining = new Thread(new Chaining(this));
+        chaining.start();
     }
 
 }

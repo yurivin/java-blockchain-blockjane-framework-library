@@ -6,20 +6,11 @@ import java.util.Date;
 @Data
 public class Block {
 
-    private Block(String genesisHash) {
-        this.env = null;
-        this.timeStamp = new Date().getTime();
-        this.data = "Genesis Block";
-        this.previousBlock = new Block(genesisHash);
-        this.hash = genesisHash;
-        this.id = 0L;
-    }
-
     protected Block(Environment env, String data, String genesisHash) {
         this.env = env;
         this.timeStamp = new Date().getTime();
         this.data = data;
-        this.previousBlock = this;
+        this.previousBlock = null;
         this.hash = calculateHash();
         this.id = 1L;
     }
@@ -52,11 +43,14 @@ public class Block {
     //Block Constructor.
 
     private String calculateHash() {
-        String calculatedHash = env.hashAlgo.apply(
-                previousBlock.getHash() +
-                        Long.toString(timeStamp) +
-                        data
-        );
+        String calculatedHash = "0";
+        if(previousBlock != null) {
+            calculatedHash = env.hashAlgo.apply(
+                    previousBlock.getHash() +
+                            Long.toString(timeStamp) +
+                            data
+            );
+        }
         return calculatedHash;
     }
 }

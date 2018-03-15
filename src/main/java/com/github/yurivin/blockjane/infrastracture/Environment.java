@@ -11,7 +11,7 @@ public class Environment {
 
     public Environment () {
         this.hashAlgo = new SHA256();
-        this.blockchain = new DummyBlockchain();
+        setBlockchain(new DummyBlockchain());
         this.blockSerializer = new DummyCollectionSerializer(40);
     }
 
