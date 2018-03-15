@@ -1,8 +1,8 @@
 package com.github.yurivin.blockjane;
 
-import com.github.yurivin.blockjane.infrastracture.Block;
+import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.infrastracture.GenesisBlock;
+import com.github.yurivin.blockjane.block.GenesisBlock;
 import org.junit.Assert;
 import org.junit.Test;
 

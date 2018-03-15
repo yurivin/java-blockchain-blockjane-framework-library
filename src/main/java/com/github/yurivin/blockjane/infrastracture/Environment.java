@@ -1,8 +1,8 @@
 package com.github.yurivin.blockjane.infrastracture;
 
 import com.github.yurivin.blockjane.blockchain.DummyBlockchain;
-import com.github.yurivin.blockjane.hash.algorithm.SHA256;
-import com.github.yurivin.blockjane.hash.algorithm.iAlgo;
+import com.github.yurivin.blockjane.hash.SHA256;
+import com.github.yurivin.blockjane.hash.iAlgo;
 import com.github.yurivin.blockjane.serializers.DummyCollectionSerializer;
 import com.github.yurivin.blockjane.serializers.iBlockSerializer;
 import com.github.yurivin.blockjane.blockchain.iBlockchain;

@@ -5,8 +5,6 @@ import com.github.yurivin.blockjane.infrastracture.Environment;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
-
 @Data
 @Slf4j
 public class BlockJane {

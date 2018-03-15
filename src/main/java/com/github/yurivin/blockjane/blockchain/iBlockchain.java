@@ -13,5 +13,12 @@ public interface iBlockchain {
      * @return
      */
     boolean newBlock();
+
     Environment setEnvironment(Environment env);
+
+    /**
+     * Method to check the integrity of blockchain
+     * @return
+     */
+    Boolean isCachedChainValid();
 }

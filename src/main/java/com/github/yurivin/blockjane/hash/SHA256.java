@@ -1,4 +1,6 @@
-package com.github.yurivin.blockjane.hash.algorithm;
+package com.github.yurivin.blockjane.hash;
+
+import com.github.yurivin.blockjane.hash.iAlgo;
 
 import java.security.MessageDigest;
 
