@@ -11,7 +11,7 @@ public class TestBlockchain {
 
     @Test
     public void mainTest() {
-        Environment env = new Environment(new SHA256(), new DummyBlockchain(), new DummyCollectionSerializer(10));
+        Environment env = new Environment();
         BlockJane blockJane = new BlockJane(env);
     }
 }

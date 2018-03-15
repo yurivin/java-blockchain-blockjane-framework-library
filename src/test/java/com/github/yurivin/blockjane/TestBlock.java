@@ -14,7 +14,7 @@ public class TestBlock {
     @Test
     public void testBlock() {
         String genesisHash = "0";
-        Environment env = new Environment(new SHA256(), new DummyBlockchain(), new DummyCollectionSerializer(10));
+        Environment env = new Environment();
         Block genesisBlock = new GenesisBlock(env, "Hi I'm a first block", genesisHash);
         Block block = new Block("Hi I'm second block", genesisBlock);
         Assert.assertEquals(genesisBlock.getHash(), block.getPreviousBlock().getHash());
