@@ -25,7 +25,7 @@ public class DummyBlockchain implements iBlockchain {
      * It will cause blockchain integrity violation because blocks hash
      * inheritance will be broken.
      */
-    private Block lastBlock;
+    private iBlock lastBlock;
 
     public DummyBlockchain() {
         this.blocksCache = new ArrayList<>();
@@ -36,11 +36,12 @@ public class DummyBlockchain implements iBlockchain {
     public boolean newBlock() {
         iBlock newBlock = null;
         if(lastBlock == null) {
-            newBlock = new GenesisBlock(env, "Genesis block data", "0");
+            newBlock = new GenesisBlock(env, "Genesis block data");
         } else {
             newBlock = new Block("Data for block:" + lastBlock.getId(), lastBlock, env);
 
         }
+        lastBlock = newBlock;
         return env.blockSerializer.serialize(newBlock);
 
     }
@@ -49,6 +50,11 @@ public class DummyBlockchain implements iBlockchain {
     public Environment setEnvironment(Environment env) {
         this.env = env;
         return this.env;
+    }
+
+    @Override
+    public iBlock getLastBlock() {
+        return lastBlock;
     }
 
     /**

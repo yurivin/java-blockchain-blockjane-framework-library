@@ -1,5 +1,6 @@
 package com.github.yurivin.blockjane.blockchain;
 
+import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 
 public interface iBlockchain {
@@ -15,6 +16,7 @@ public interface iBlockchain {
     boolean newBlock();
 
     Environment setEnvironment(Environment env);
+    iBlock getLastBlock();
 
     /**
      * Method to check the integrity of blockchain

@@ -5,7 +5,6 @@ import com.github.yurivin.blockjane.exception.InvalidBlockchainStateException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class DummyCollectionSerializer implements iBlockSerializer {
         for(int i=1; i < blocks.size(); i++) {
             iBlock currentBlock = blocks.get(i);
             //compare registered hash and calculated hash:
-            if(!currentBlock.getHash().equals(currentBlock.calculateHash()) ){
+            if(!currentBlock.getHash().equals(currentBlock.getEnv().consensus.generateConsensus()) ){
                 log.error("Current Hashes not equal for block id: " + currentBlock.getHash());
                 return false;
             }

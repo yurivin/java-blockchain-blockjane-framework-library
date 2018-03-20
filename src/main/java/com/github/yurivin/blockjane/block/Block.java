@@ -1,5 +1,6 @@
 package com.github.yurivin.blockjane.block;
 
+import com.github.yurivin.blockjane.consensus.iConsensus;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 import lombok.Data;
 
@@ -7,12 +8,12 @@ import java.util.Date;
 @Data
 public class Block implements iBlock {
 
-    protected Block(Environment env, String data, String genesisHash) {
+    protected Block(Environment env, String data) {
         this.env = env;
         this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousBlock = null;
-        this.hash = calculateHash();
+        this.hash = env.consensus.generateConsensus();
         this.id = 1L;
     }
 
@@ -21,7 +22,7 @@ public class Block implements iBlock {
         this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousBlock = previousBlock;
-        this.hash = calculateHash();
+        this.hash = previousBlock.getEnv().consensus.generateConsensus();
         this.id = previousBlock.getId() + 1;
     }
 
@@ -30,7 +31,8 @@ public class Block implements iBlock {
         this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousBlock = previousBlock;
-        this.hash = calculateHash();
+        env.consensus.setBlockData(data);
+        this.hash = env.consensus.generateConsensus();
         this.id = previousBlock.getId() + 1;
     }
 
@@ -41,18 +43,4 @@ public class Block implements iBlock {
     private final long timeStamp; //as number of milliseconds since 1/1/1970 in UTC.
     private final Environment env;
 
-    //Block Constructor.
-
-    @Override
-    public String calculateHash() {
-        String calculatedHash = "0";
-        if(previousBlock != null) {
-            calculatedHash = env.hashAlgo.apply(
-                    previousBlock.getHash() +
-                            Long.toString(timeStamp) +
-                            data
-            );
-        }
-        return calculatedHash;
-    }
 }

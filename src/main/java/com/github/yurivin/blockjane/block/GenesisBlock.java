@@ -9,10 +9,9 @@ public class GenesisBlock extends Block {
      * create a regular block with previous hash different from previous block hash.
      * @param env
      * @param data
-     * @param genesisHash
      */
-    public GenesisBlock(Environment env, String data, String genesisHash) {
-        super(env, data, genesisHash);
+    public GenesisBlock(Environment env, String data) {
+        super(env, data);
     }
 
 }
