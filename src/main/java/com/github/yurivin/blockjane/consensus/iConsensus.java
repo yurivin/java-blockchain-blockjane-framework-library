@@ -1,9 +1,14 @@
 package com.github.yurivin.blockjane.consensus;
 
 
-public interface iConsensus {
+import com.github.yurivin.blockjane.infrastracture.Environment;
 
-    String hashPart();
+public interface iConsensus {
+    /**
+     * Method should return values which should be
+     * @return
+     */
     String generateConsensus();
     void setBlockData(String data);
+    void setEnvironment(Environment env);
 }

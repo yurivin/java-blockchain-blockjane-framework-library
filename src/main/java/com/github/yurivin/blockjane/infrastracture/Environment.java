@@ -15,7 +15,7 @@ public class Environment {
         this.hashAlgo = new SHA256();
         setBlockchain(new DummyBlockchain());
         this.blockSerializer = new DummyCollectionSerializer(40);
-        this.consensus = new PoWConsensus();
+        this.setConsensus(new PoWConsensus());
     }
 
     public Environment (iAlgo algo, iBlockchain blockchain, iBlockSerializer blockSerializer, iConsensus consensus) {
@@ -26,17 +26,18 @@ public class Environment {
     }
 
     public iAlgo hashAlgo;
-    private iBlockchain blockchain;
+    public iBlockchain blockchain;
     public iBlockSerializer blockSerializer;
     public iConsensus consensus;
 
-    public iBlockchain getBlockchain() {
-        return blockchain;
-    }
 
     public void setBlockchain(iBlockchain blockchain) {
         this.blockchain = blockchain;
         blockchain.setEnvironment(this);
     }
 
+    public void setConsensus(iConsensus consensus) {
+        this.consensus = consensus;
+        consensus.setEnvironment(this);
+    }
 }

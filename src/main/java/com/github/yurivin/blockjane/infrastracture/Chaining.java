@@ -12,7 +12,7 @@ public class Chaining implements Runnable {
     @Override
     public void run() {
         while(blockJane.isRunning()) {
-            if(!blockJane.getEnv().getBlockchain().newBlock()) {
+            if(!blockJane.getEnv().blockchain.newBlock()) {
                 throw new IllegalStateException("Node is broken. Can't create block");
             }
         }
