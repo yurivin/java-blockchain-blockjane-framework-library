@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class DummyBlockchain implements iBlockchain {
+public class SimpleBlockchain implements iBlockchain {
 
     /**
      * This property should be not accessible out from this class.
@@ -27,7 +27,7 @@ public class DummyBlockchain implements iBlockchain {
      */
     private iBlock lastBlock;
 
-    public DummyBlockchain() {
+    public SimpleBlockchain() {
         this.blocksCache = new ArrayList<>();
     }
 
@@ -42,8 +42,18 @@ public class DummyBlockchain implements iBlockchain {
 
         }
         lastBlock = newBlock;
-        return env.blockSerializer.serialize(newBlock);
-
+        blocksCache.add(newBlock);
+        boolean serialized = false;
+        List<iBlock> toRemoveList = new ArrayList<>();
+        if(blocksCache.size() > 0) {
+            for (iBlock block: blocksCache) {
+                serialized = env.blockSerializer.serialize(newBlock);
+                if(!serialized) { break;}
+                else {toRemoveList.add(block);}
+            }
+            blocksCache.removeAll(toRemoveList);
+        }
+        return serialized;
     }
 
     @Override

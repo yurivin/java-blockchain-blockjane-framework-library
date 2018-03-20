@@ -10,11 +10,12 @@ import java.util.List;
 
 @Data
 @Slf4j
-public class DummyCollectionSerializer implements iBlockSerializer {
+public class CollectionSerializer implements iBlockSerializer {
 
     private final List<iBlock> serializedBlocks;
     private int maxSize;
-    public DummyCollectionSerializer(int maxSize) {
+    public CollectionSerializer(int maxSize) {
+        this.maxSize = maxSize;
         this.serializedBlocks = new ArrayList<>(maxSize);
     }
 
@@ -48,6 +49,7 @@ public class DummyCollectionSerializer implements iBlockSerializer {
                 return false;
             }
         }
+        log.info("Validating blockchain: Chain is valid");
         return true;
     }
 

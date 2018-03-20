@@ -1,11 +1,11 @@
 package com.github.yurivin.blockjane.infrastracture;
 
-import com.github.yurivin.blockjane.blockchain.DummyBlockchain;
+import com.github.yurivin.blockjane.blockchain.SimpleBlockchain;
 import com.github.yurivin.blockjane.consensus.PoWConsensus;
 import com.github.yurivin.blockjane.consensus.iConsensus;
 import com.github.yurivin.blockjane.hash.SHA256;
 import com.github.yurivin.blockjane.hash.iAlgo;
-import com.github.yurivin.blockjane.serializers.DummyCollectionSerializer;
+import com.github.yurivin.blockjane.serializers.CollectionSerializer;
 import com.github.yurivin.blockjane.serializers.iBlockSerializer;
 import com.github.yurivin.blockjane.blockchain.iBlockchain;
 
@@ -13,8 +13,8 @@ public class Environment {
 
     public Environment () {
         this.hashAlgo = new SHA256();
-        setBlockchain(new DummyBlockchain());
-        this.blockSerializer = new DummyCollectionSerializer(40);
+        setBlockchain(new SimpleBlockchain());
+        this.blockSerializer = new CollectionSerializer(40);
         this.setConsensus(new PoWConsensus());
     }
 
