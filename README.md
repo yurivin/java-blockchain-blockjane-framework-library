@@ -1,7 +1,7 @@
 # java-blockchain-blockjane-framework-library
 BlockJane - Flexible blockchain framework for Java development
 
-## Whitelist of BlocKJane
+## Whitelist of BlockJane
 BlocJane ia a Java Blockchain library created for flexible and fast blockchain development for enterprise needs.
 
 
