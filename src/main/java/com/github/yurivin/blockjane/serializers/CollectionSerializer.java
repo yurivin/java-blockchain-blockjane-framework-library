@@ -53,4 +53,11 @@ public class CollectionSerializer implements iBlockSerializer {
         return true;
     }
 
+    /**
+     * Method for testing purposes
+     * @return
+     */
+    public List<iBlock> getSerializedBlocks() {
+        return serializedBlocks;
+    }
 }

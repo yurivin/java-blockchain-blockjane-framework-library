@@ -1,5 +1,6 @@
 package com.github.yurivin.blockjane.blockchain;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 
@@ -13,7 +14,7 @@ public interface iBlockchain {
      * but serializes all pending block when it is possible.
      * @return
      */
-    boolean newBlock();
+    boolean newBlock() throws JsonProcessingException;
 
     Environment setEnvironment(Environment env);
     iBlock getLastBlock();

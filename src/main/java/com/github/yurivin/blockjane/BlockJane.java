@@ -2,7 +2,6 @@ package com.github.yurivin.blockjane;
 
 import com.github.yurivin.blockjane.infrastracture.Chaining;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.google.gson.JsonObject;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

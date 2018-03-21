@@ -1,10 +1,11 @@
 package com.github.yurivin.blockjane.blockchain;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yurivin.blockjane.block.Block;
+import com.github.yurivin.blockjane.block.GenesisBlock;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.block.GenesisBlock;
-import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Slf4j
 public class SimpleBlockchain implements iBlockchain {
+    private ObjectMapper mapper = new ObjectMapper();
 
     /**
      * This property should be not accessible out from this class.
@@ -39,12 +41,13 @@ public class SimpleBlockchain implements iBlockchain {
 
 
     @Override
-    public boolean newBlock() {
+    public boolean newBlock() throws JsonProcessingException {
         iBlock newBlock = null;
         if(lastBlock == null) {
             newBlock = new GenesisBlock(env, "Genesis block data");
         } else {
-            newBlock = new Block("Data for block:" + lastBlock.getId(), lastBlock, env);
+            newBlock = new Block(blockDataQueue.poll(), lastBlock, env);
+            log.info("New block created: " + mapper.writeValueAsString(newBlock));
         }
         lastBlock = newBlock;
         blocksCache.add(newBlock);

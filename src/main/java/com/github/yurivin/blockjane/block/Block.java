@@ -1,5 +1,6 @@
 package com.github.yurivin.blockjane.block;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.yurivin.blockjane.consensus.iConsensus;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 import lombok.Data;
@@ -38,9 +39,12 @@ public class Block implements iBlock {
 
     private final Long id;
     private final String hash;
+    @JsonIgnore
     private final iBlock previousBlock;
     private final String data; //our data will be a simple message.
+    @JsonIgnore
     private final long timeStamp; //as number of milliseconds since 1/1/1970 in UTC.
+    @JsonIgnore
     private final Environment env;
 
 }
