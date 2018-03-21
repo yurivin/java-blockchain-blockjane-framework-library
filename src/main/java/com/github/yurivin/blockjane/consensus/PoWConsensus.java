@@ -24,7 +24,7 @@ public class PoWConsensus implements iConsensus {
             nonce++;
             hash = calculateHash();
         }
-        log.info("Block Mined!!! : " + hash);
+        log.info("Block Mined!!!: " + hash);
         return hash;
     }
 

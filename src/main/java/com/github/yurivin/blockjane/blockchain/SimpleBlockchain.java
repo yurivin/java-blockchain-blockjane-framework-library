@@ -21,7 +21,6 @@ public class SimpleBlockchain implements iBlockchain {
      * inheritance will be broken.
      */
     private final List<iBlock> blocksCache;
-    private final GsonBuilder jsonBuilder = new GsonBuilder();
     public Environment env;
     /**
      * This property should be not accessible out from this class.
@@ -46,7 +45,6 @@ public class SimpleBlockchain implements iBlockchain {
             newBlock = new GenesisBlock(env, "Genesis block data");
         } else {
             newBlock = new Block("Data for block:" + lastBlock.getId(), lastBlock, env);
-            log.debug("New block created: " + jsonBuilder.setPrettyPrinting().create().toJson(newBlock));
         }
         lastBlock = newBlock;
         blocksCache.add(newBlock);
@@ -89,7 +87,7 @@ public class SimpleBlockchain implements iBlockchain {
 
     @Override
     public void addBlockData(String data) {
-
+        blockDataQueue.add(data);
     }
 
 
