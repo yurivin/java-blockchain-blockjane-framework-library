@@ -4,10 +4,13 @@ import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 import com.github.yurivin.blockjane.block.GenesisBlock;
+import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Slf4j
 public class SimpleBlockchain implements iBlockchain {
@@ -18,7 +21,7 @@ public class SimpleBlockchain implements iBlockchain {
      * inheritance will be broken.
      */
     private final List<iBlock> blocksCache;
-
+    private final GsonBuilder jsonBuilder = new GsonBuilder();
     public Environment env;
     /**
      * This property should be not accessible out from this class.
@@ -26,6 +29,10 @@ public class SimpleBlockchain implements iBlockchain {
      * inheritance will be broken.
      */
     private iBlock lastBlock;
+    /**
+     * Queue of data to add in to new blocks;
+     */
+    private Queue<String> blockDataQueue = new ConcurrentLinkedQueue<>();
 
     public SimpleBlockchain() {
         this.blocksCache = new ArrayList<>();
@@ -39,7 +46,7 @@ public class SimpleBlockchain implements iBlockchain {
             newBlock = new GenesisBlock(env, "Genesis block data");
         } else {
             newBlock = new Block("Data for block:" + lastBlock.getId(), lastBlock, env);
-
+            log.debug("New block created: " + jsonBuilder.setPrettyPrinting().create().toJson(newBlock));
         }
         lastBlock = newBlock;
         blocksCache.add(newBlock);
@@ -82,7 +89,7 @@ public class SimpleBlockchain implements iBlockchain {
 
     @Override
     public void addBlockData(String data) {
-        //TODO realize adding data to block;
+
     }
 
 
