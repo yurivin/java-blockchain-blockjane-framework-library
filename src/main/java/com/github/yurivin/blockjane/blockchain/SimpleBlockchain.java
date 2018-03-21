@@ -43,6 +43,10 @@ public class SimpleBlockchain implements iBlockchain {
         }
         lastBlock = newBlock;
         blocksCache.add(newBlock);
+        return serialize(newBlock);
+    }
+
+    private boolean serialize(iBlock newBlock) {
         boolean serialized = false;
         List<iBlock> toRemoveList = new ArrayList<>();
         if(blocksCache.size() > 0) {
@@ -74,6 +78,11 @@ public class SimpleBlockchain implements iBlockchain {
     @Override
     public Boolean isCachedChainValid() {
         return env.blockSerializer.isChainValid(blocksCache);
+    }
+
+    @Override
+    public void addBlockData(String data) {
+        //TODO realize adding data to block;
     }
 
 

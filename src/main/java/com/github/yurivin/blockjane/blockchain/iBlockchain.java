@@ -23,4 +23,10 @@ public interface iBlockchain {
      * @return
      */
     Boolean isCachedChainValid();
+
+    /**
+     * Method to add data to new block;
+     * @param data
+     */
+    void addBlockData(String data);
 }
