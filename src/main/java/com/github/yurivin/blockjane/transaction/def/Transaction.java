@@ -45,8 +45,7 @@ public class Transaction {
     private String calulateHash() {
         Long date = System.currentTimeMillis();
         if(env.lastTransactionTimestamp.get() == new Date().getTime()) {
-            env.transactionCount.incrementAndGet();
-            //increase the sequence to avoid 2 identical transactions having the same hash
+            env.transactionCount.incrementAndGet();   //increase the sequence to avoid 2 identical transactions having the same hash
         } else {
             env.transactionCount.set(0);
             env.lastTransactionTimestamp.set(date);
