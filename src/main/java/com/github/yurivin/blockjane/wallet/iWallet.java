@@ -5,7 +5,7 @@ import java.security.PublicKey;
 public interface iWallet {
 
 
-    PublicKey getPublicKey();
+    PublicKey getWalletAddress();
 
 
 }

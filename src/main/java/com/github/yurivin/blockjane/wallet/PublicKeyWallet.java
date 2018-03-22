@@ -20,8 +20,10 @@ public class PublicKeyWallet implements iWallet {
     private PublicKey publicKey;
 
     private void generateKeyPair() {
-        try {
+        if(Security.getProvider("BC") == null) {
             Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        }
+        try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
@@ -32,13 +34,13 @@ public class PublicKeyWallet implements iWallet {
             privateKey = keyPair.getPrivate();
             publicKey = keyPair.getPublic();
         }catch(Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error generating keyPair for Wallet",e);
         }
     }
 
 
     @Override
-    public PublicKey getPublicKey() {
+    public PublicKey getWalletAddress() {
         return publicKey;
     }
 }
