@@ -11,6 +11,9 @@ import com.github.yurivin.blockjane.blockchain.iBlockchain;
 import com.github.yurivin.blockjane.wallet.PublicKeyWallet;
 import com.github.yurivin.blockjane.wallet.iWallet;
 
+import java.security.PublicKey;
+import java.util.Map;
+
 public class Environment {
 
     public Environment () {
@@ -18,22 +21,22 @@ public class Environment {
         setBlockchain(new SimpleBlockchain());
         this.blockSerializer = new CollectionSerializer(40);
         this.setConsensus(new PoWConsensus());
-        this.wallet = new PublicKeyWallet();
+        this.walletType = PublicKeyWallet.class;
     }
 
-    public Environment (iAlgo algo, iBlockchain blockchain, iBlockSerializer blockSerializer, iConsensus consensus, iWallet wallet) {
+    public Environment (iAlgo algo, iBlockchain blockchain, iBlockSerializer blockSerializer, iConsensus consensus) {
         this.hashAlgo = algo;
         this.blockchain = blockchain;
         this.blockSerializer = blockSerializer;
         this.consensus = consensus;
-        this.wallet = wallet;
     }
 
     public iAlgo hashAlgo;
     public iBlockchain blockchain;
     public iBlockSerializer blockSerializer;
     public iConsensus consensus;
-    public iWallet wallet;
+    public Class walletType;
+    public Map<PublicKey,iWallet> wallets;
 
 
     public void setBlockchain(iBlockchain blockchain) {
