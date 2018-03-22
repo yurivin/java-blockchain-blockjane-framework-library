@@ -2,6 +2,7 @@ package com.github.yurivin.blockjane;
 
 import com.github.yurivin.blockjane.infrastracture.Chaining;
 import com.github.yurivin.blockjane.infrastracture.Environment;
+import com.github.yurivin.blockjane.wallet.iWallet;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +28,10 @@ public class BlockJane {
 
     public void addBlockData(String data) {
         env.blockchain.addBlockData(data);
+    }
+
+    public iWallet getWallet() {
+        return env.wallet;
     }
 
 }

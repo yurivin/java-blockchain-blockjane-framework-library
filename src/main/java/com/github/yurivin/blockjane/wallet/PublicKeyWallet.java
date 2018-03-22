@@ -6,21 +6,22 @@ import java.security.spec.ECGenParameterSpec;
 /**
  * Cryptography used - https://en.wikipedia.org/wiki/Elliptic-curve_cryptography
  */
+
 public class PublicKeyWallet implements iWallet {
 
     public PublicKeyWallet(){
         generateKeyPair();
     }
 
-    public PrivateKey privateKey;
+    private PrivateKey privateKey;
     /**
      * Public key acts as an address in this wallet
      */
-    public PublicKey publicKey;
+    private PublicKey publicKey;
 
-    @Override
-    public void generateKeyPair() {
+    private void generateKeyPair() {
         try {
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
@@ -33,5 +34,11 @@ public class PublicKeyWallet implements iWallet {
         }catch(Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    @Override
+    public PublicKey getPublicKey() {
+        return publicKey;
     }
 }
