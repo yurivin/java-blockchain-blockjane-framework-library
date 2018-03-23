@@ -20,7 +20,25 @@ BlocJane ia a Java Blockchain library created for flexible and fast blockchain d
 
 
 ## Links
-1. Blockchain tutorial part 1 - https://github.com/CryptoKass/NoobChain-Tutorial-Part-1
-2. Blockchain tutorial part 2 - https://github.com/CryptoKass/NoobChain-Tutorial-Part-2
+
+### Beginners blockchain
+1. Blockchain tutorial part 1: https://github.com/CryptoKass/NoobChain-Tutorial-Part-1
+2. Blockchain tutorial part 2: https://github.com/CryptoKass/NoobChain-Tutorial-Part-2
+3. List of other awesome blockchain tutorials: https://github.com/openblockchains/awesome-blockchains
+4. Papers on blockchain (found by rjc): https://github.com/bellaj/Blockchain
+
+### Smart contracts
+1. Hello world Smart contract (Solidity tutorial): https://www.ethereum.org/greeter
+2. Begginers guide - smart contracts (solidity video tutorial): https://www.youtube.com/watch?v=R_CiemcFKis
+3. Neo Smart Contracts (C# tutorial): https://www.linkedin.com/pulse/neo-smart-contract-development-m%C3%A1t%C3%A9-moln%C3%A1r
+
+### Production tools
+Using the right tools : 
+1. Coinbase API (useful for developing apps for bitcoin/ltc/eth): https://developers.coinbase.com/
+2. Remix - Browser based solidity editor (write and test ethereum smart contracts): https://remix.ethereum.org/
+3. BitcoinJ Java source code (have a browse through the bitcoinj repo): https://github.com/bitcoin-labs/bitcoinj-minimal/tree/master/core
+4. HyperLedger fabric (permissioned blockchain framework): https://hyperledger.org/projects/fabric
+5. HyperLedger sawtooth (blockchain with smart contract support): https://sawtooth.hyperledger.org/docs/core/releases/latest/introduction.html
+6. Bouncey castle cryptographic library (Java library): https://www.bouncycastle.org/latest_releases.html
 
 
