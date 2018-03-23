@@ -28,6 +28,7 @@ BlocJane ia a Java Blockchain library created for flexible and fast blockchain d
 4. Papers on blockchain (found by rjc): https://github.com/bellaj/Blockchain
 5. Crypto wallet example: https://github.com/Levalicious/CryptoWallet
 6. Peer to Peer sources: https://github.com/kgryte/awesome-peer-to-peer
+7. Simple Java Blockchain: https://github.com/dottorm/SimpleBlockChain
 
 ### Smart contracts
 1. Hello world Smart contract (Solidity tutorial): https://www.ethereum.org/greeter
