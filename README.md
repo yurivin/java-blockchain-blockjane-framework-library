@@ -26,6 +26,7 @@ BlocJane ia a Java Blockchain library created for flexible and fast blockchain d
 2. Blockchain tutorial part 2: https://github.com/CryptoKass/NoobChain-Tutorial-Part-2
 3. List of other awesome blockchain tutorials: https://github.com/openblockchains/awesome-blockchains
 4. Papers on blockchain (found by rjc): https://github.com/bellaj/Blockchain
+5. Crypto wallet example: https://github.com/Levalicious/CryptoWallet
 
 ### Smart contracts
 1. Hello world Smart contract (Solidity tutorial): https://www.ethereum.org/greeter
