@@ -2,9 +2,11 @@
 BlockJane - Flexible blockchain framework for Java development
 
 ### Donate
-LTC - LbcTExZ9EEUNp61dwDnJgYKAKoQq29vhEw
-BTC - 1N6iBNAYiX5ybxdCWTJ9LMZDuQcXDQCLu9
-ETH - 0x0d8a2920ccdb08959f2df1f939db5accd2558dfe
+* LTC - LbcTExZ9EEUNp61dwDnJgYKAKoQq29vhEw
+* BTC - 1N6iBNAYiX5ybxdCWTJ9LMZDuQcXDQCLu9
+* ETH - 0x0d8a2920ccdb08959f2df1f939db5accd2558dfe
+* XEM - NBKENJ-Q5IS6C-NZEO6F-T5BM5S-K2IZZI-D5UCHJ-K3SF
+
 ## Whitelist of BlockJane
 BlocJane ia a Java Blockchain library created for flexible and fast blockchain development for enterprise needs.
 
