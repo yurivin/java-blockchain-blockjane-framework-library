@@ -2,15 +2,15 @@ package com.github.yurivin.blockjane.serializers;
 
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.exception.InvalidBlockchainStateException;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@Slf4j
 public class CollectionSerializer implements iBlockSerializer {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final List<iBlock> serializedBlocks;
     private int maxSize;

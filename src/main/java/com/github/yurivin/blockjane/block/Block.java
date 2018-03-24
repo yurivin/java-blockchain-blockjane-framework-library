@@ -1,13 +1,15 @@
 package com.github.yurivin.blockjane.block;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.yurivin.blockjane.consensus.iConsensus;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
-@Data
+
 public class Block implements iBlock {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     protected Block(Environment env, String data) {
         this.env = env;
@@ -47,4 +49,23 @@ public class Block implements iBlock {
     @JsonIgnore
     private final Environment env;
 
+    @Override
+    public String getHash() {
+        return hash;
+    }
+
+    @Override
+    public Environment getEnv() {
+        return env;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public iBlock getPreviousBlock() {
+        return previousBlock;
+    }
 }

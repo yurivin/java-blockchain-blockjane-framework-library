@@ -25,7 +25,7 @@ public class TestBlockJane {
         //Test add data to the block
         blockJane.addBlockData("Test block data");
         blockJane.addBlockData("Other test block data");
-        Thread.sleep(200);
+        Thread.sleep(300);
         blockJane.setRunning(false);
         //Assert blocks were created
         Assert.assertNotNull(blockJane.getEnv().blockchain.getLastBlock());
