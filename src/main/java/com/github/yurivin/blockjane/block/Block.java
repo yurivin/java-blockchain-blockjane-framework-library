@@ -2,10 +2,13 @@ package com.github.yurivin.blockjane.block;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.yurivin.blockjane.infrastracture.Environment;
+import com.github.yurivin.blockjane.transaction.iTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Block implements iBlock {
 
@@ -44,10 +47,11 @@ public class Block implements iBlock {
     @JsonIgnore
     private final iBlock previousBlock;
     private final String data; //our data will be a simple message.
-    @JsonIgnore
     private final long timeStamp; //as number of milliseconds since 1/1/1970 in UTC.
     @JsonIgnore
     private final Environment env;
+    private final List<iTransaction> transactions = new ArrayList<>();
+
 
     @Override
     public String getHash() {
@@ -67,5 +71,10 @@ public class Block implements iBlock {
     @Override
     public iBlock getPreviousBlock() {
         return previousBlock;
+    }
+
+    @Override
+    public List<iTransaction> getTransactions() {
+        return transactions;
     }
 }
