@@ -10,5 +10,9 @@ public interface iWallet {
     PublicKey getWalletAddress();
     PublicKey getPublicKey();
     byte[] generateSignature(BigDecimal amount, PublicKey recipient);
+    /**
+     *  Returns balance and stores the UTXO's owned by this wallet in this.UTXOs
+     */
+    BigDecimal getBalance();
 
 }

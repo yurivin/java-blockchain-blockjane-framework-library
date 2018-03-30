@@ -19,7 +19,7 @@ public class Block implements iBlock {
         this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousBlock = null;
-        this.hash = env.consensus.generateConsensus();
+        this.hash = env.consensus.proof();
         this.id = 1L;
     }
 
@@ -28,7 +28,7 @@ public class Block implements iBlock {
         this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousBlock = previousBlock;
-        this.hash = previousBlock.getEnv().consensus.generateConsensus();
+        this.hash = previousBlock.getEnv().consensus.proof();
         this.id = previousBlock.getId() + 1;
     }
 
@@ -38,7 +38,7 @@ public class Block implements iBlock {
         this.data = data;
         this.previousBlock = previousBlock;
         env.consensus.setBlockData(data);
-        this.hash = env.consensus.generateConsensus();
+        this.hash = env.consensus.proof();
         this.id = previousBlock.getId() + 1;
     }
 

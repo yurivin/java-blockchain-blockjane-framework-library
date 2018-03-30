@@ -1,4 +1,4 @@
-package com.github.yurivin.blockjane.transaction.signature;
+package com.github.yurivin.blockjane.signature;
 
 import java.security.*;
 

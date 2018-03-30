@@ -1,10 +1,22 @@
 package com.github.yurivin.blockjane.wallet;
 
 import com.github.yurivin.blockjane.infrastracture.Environment;
+import com.github.yurivin.blockjane.transaction.inoutmodel.InOutTransaction;
+import com.github.yurivin.blockjane.transaction.inoutmodel.TransactionInput;
+import com.github.yurivin.blockjane.transaction.iTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionInput;
+import com.github.yurivin.blockjane.transaction.iPendingTransaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static com.github.yurivin.blockjane.utils.StringUtils.*;
 
 /**
@@ -12,6 +24,8 @@ import static com.github.yurivin.blockjane.utils.StringUtils.*;
  */
 
 public class PublicKeyWallet  implements iWallet {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     public PublicKeyWallet(Environment env){
         this.env = env;
@@ -25,6 +39,53 @@ public class PublicKeyWallet  implements iWallet {
     private PublicKey publicKey;
 
     private Environment env;
+    /**
+     * Only UTXOs owned by this wallet.
+     */
+    private final Map<String, iPendingTransaction> UTXOs = new HashMap<>();
+
+
+    /**
+     *     Generates and returns a new transaction from this wallet.
+     */
+    public iTransaction sendFunds(PublicKey recipient, BigDecimal value ) {
+        if(getBalance().compareTo(value) == -1) { //gather balance and check funds.
+            System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
+            return null;
+        }
+        //create array list of inputs
+        List<iTransactionInput> inputs = new ArrayList<>();
+
+        BigDecimal total = new BigDecimal("0");
+        for (Map.Entry<String, iPendingTransaction> item: UTXOs.entrySet()){
+            iPendingTransaction UTXO = item.getValue();
+            total.add(UTXO.getAmount());
+            inputs.add(new TransactionInput(UTXO.getId()));
+            if(total.compareTo(value) == 1) break;
+        }
+
+        iTransaction newTransaction = new InOutTransaction(this, recipient , value, inputs, env);
+
+        for(iTransactionInput input: inputs){
+            UTXOs.remove(input.getTransactionOutputId());
+        }
+        return newTransaction;
+    }
+    /**
+     *  Returns balance and stores the UTXO's owned by this wallet in this.UTXOs
+     */
+    @Override
+    public BigDecimal getBalance() {
+        BigDecimal total = new BigDecimal("0");
+        for (Map.Entry<String, iPendingTransaction> item: env.transactionEnv.getPending().entrySet()){
+            iPendingTransaction UTXO = item.getValue();
+            if(UTXO.isAssignedTo(publicKey)) { //if output belongs to me ( if coins belong to me )
+                UTXOs.put(UTXO.getId(),UTXO); //add it to our list of unspent transactions.
+                total.add(UTXO.getAmount());
+            }
+        }
+        return total;
+    }
 
     private void generateKeyPair() {
         if(Security.getProvider("BC") == null) {

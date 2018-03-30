@@ -1,4 +1,4 @@
-package com.github.yurivin.blockjane.transaction.signature;
+package com.github.yurivin.blockjane.signature;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
