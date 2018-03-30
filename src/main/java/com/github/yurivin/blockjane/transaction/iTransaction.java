@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 public interface iTransaction {
 
     /**
-     *     Verifies the data we signed hasnt been tampered with
+     *     Verifies the data we signed hasn't been tampered with
      */
     boolean verifiySignature();
     /**

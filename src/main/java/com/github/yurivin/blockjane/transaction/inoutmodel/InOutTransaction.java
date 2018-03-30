@@ -97,7 +97,7 @@ public class InOutTransaction implements iTransaction {
 
         //gather transaction inputs (Make sure they are unspent):
         for(iTransactionInput input : inputs) {
-            input.setUTXO(env.transactionEnv.getPending().get(input.getTransactionOutputId()));
+            input.setUTXO(env.blockchain.getPendingTransactions().get(input.getTransactionOutputId()));
         }
 
         //check if transaction is valid having amount bigger than minimum for blockchain:
@@ -113,13 +113,13 @@ public class InOutTransaction implements iTransaction {
 
         //add outputs to Unspent list
         for(iPendingTransaction output : outputs) {
-            env.transactionEnv.getPending().put(output.getId(), output);
+            env.blockchain.getPendingTransactions().put(output.getId(), output);
         }
 
         //remove transaction inputs from UTXO lists as spent:
         for(iTransactionInput input : inputs) {
             if(input.getUTXO() == null) continue; //if Transaction can't be found skip it
-            env.transactionEnv.getPending().remove(input.getUTXO().getId());
+            env.blockchain.getPendingTransactions().remove(input.getUTXO().getId());
         }
 
         return true;

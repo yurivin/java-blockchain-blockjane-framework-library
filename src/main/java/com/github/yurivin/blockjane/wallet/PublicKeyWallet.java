@@ -77,7 +77,7 @@ public class PublicKeyWallet  implements iWallet {
     @Override
     public BigDecimal getBalance() {
         BigDecimal total = new BigDecimal("0");
-        for (Map.Entry<String, iPendingTransaction> item: env.transactionEnv.getPending().entrySet()){
+        for (Map.Entry<String, iPendingTransaction> item: env.blockchain.getPendingTransactions().entrySet()){
             iPendingTransaction UTXO = item.getValue();
             if(UTXO.isAssignedTo(publicKey)) { //if output belongs to me ( if coins belong to me )
                 UTXOs.put(UTXO.getId(),UTXO); //add it to our list of unspent transactions.

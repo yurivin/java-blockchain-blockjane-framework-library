@@ -10,7 +10,6 @@ import com.github.yurivin.blockjane.serializers.CollectionSerializer;
 import com.github.yurivin.blockjane.serializers.iBlockSerializer;
 import com.github.yurivin.blockjane.signature.ECDSASignature;
 import com.github.yurivin.blockjane.signature.iSignature;
-import com.github.yurivin.blockjane.transaction.iTransactionEnvironment;
 import com.github.yurivin.blockjane.wallet.PublicKeyWallet;
 import com.github.yurivin.blockjane.wallet.iWallet;
 
@@ -54,7 +53,6 @@ public class Environment {
     public UUID nodeStartupUuid = UUID.randomUUID();
     public iSignature signature;
     public BigDecimal minimumTransactionAmount = new BigDecimal(0.1f);
-    public iTransactionEnvironment transactionEnv;
 
     public void setBlockchain(iBlockchain blockchain) {
         this.blockchain = blockchain;
