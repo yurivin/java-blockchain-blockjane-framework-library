@@ -27,17 +27,17 @@ public class Environment {
         this.hashAlgo = new SHA256();
         setBlockchain(new SimpleBlockchain());
         this.blockSerializer = new CollectionSerializer(40);
-        this.setConsensus(new PoW());
+        this.setProofType(new PoW());
         this.walletType = PublicKeyWallet.class;
         this.signature = new ECDSASignature();
     }
 
-    public Environment (iAlgo algo, iBlockchain blockchain, iBlockSerializer blockSerializer, iProof consensus,
+    public Environment (iAlgo algo, iBlockchain blockchain, iBlockSerializer blockSerializer, iProof proofType,
                         Class walletType, iSignature signature) {
         this.hashAlgo = algo;
         this.blockchain = blockchain;
         this.blockSerializer = blockSerializer;
-        this.consensus = consensus;
+        this.proofType = proofType;
         this.walletType = walletType;
         this.signature = signature;
     }
@@ -45,7 +45,7 @@ public class Environment {
     public iAlgo hashAlgo;
     public iBlockchain blockchain;
     public iBlockSerializer blockSerializer;
-    public iProof consensus;
+    public iProof proofType;
     public Class walletType;
     public Map<PublicKey,iWallet> wallets;
     public final AtomicLong lastTransactionTimestamp = new AtomicLong(0);
@@ -61,8 +61,8 @@ public class Environment {
         blockchain.setEnvironment(this);
     }
 
-    public void setConsensus(iProof consensus) {
-        this.consensus = consensus;
-        consensus.setEnvironment(this);
+    public void setProofType(iProof proofType) {
+        this.proofType = proofType;
+        proofType.setEnvironment(this);
     }
 }

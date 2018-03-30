@@ -12,4 +12,12 @@ public interface iBlock {
     Long getId();
     iBlock getPreviousBlock();
     List<iTransaction> getTransactions();
+    String getTransactionsBatchHash();
+
+    /**
+     * It should be possible to set this only once;
+     * Hashing algo for batch of transactions like Merkle tree.
+     * @param batchHash
+     */
+    void setTransactionsBatchHash(String batchHash);
 }

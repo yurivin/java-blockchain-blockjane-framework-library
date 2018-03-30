@@ -16,13 +16,13 @@ public class PoW implements iProof {
     private int nonce;
     private Environment env;
     private String blockData;
+    private volatile int delayFactor = 3;
 
     @Override
     public String proof() {
-        int difficulty = calculateDifficulty();
         String hash = null;
-        String target = new String(new char[difficulty]).replace('\0', '0'); //Create a string with difficulty * "0"
-        while (hash == null || !hash.substring(0, difficulty).equals(target)) {
+        String target = new String(new char[delayFactor]).replace('\0', '0'); //Create a string with difficulty * "0"
+        while (hash == null || !hash.substring(0, delayFactor).equals(target)) {
             nonce++;
             hash = calculateHash();
         }
@@ -42,7 +42,7 @@ public class PoW implements iProof {
 
     private String calculateHash() {
         String calculatedHash = "0";
-        if(env.blockchain.getLastBlock() != null) {
+        if (env.blockchain.getLastBlock() != null) {
             calculatedHash = env.hashAlgo.apply(
                     env.blockchain.getLastBlock().getHash() +
                             Long.toString(new Date().getTime()) +
@@ -51,7 +51,7 @@ public class PoW implements iProof {
             );
         } else {
             calculatedHash = env.hashAlgo.apply(
-                            Long.toString(new Date().getTime()) +
+                    Long.toString(new Date().getTime()) +
                             nonce +
                             blockData
             );
@@ -59,7 +59,13 @@ public class PoW implements iProof {
         return calculatedHash;
     }
 
-    private int calculateDifficulty() {
-        return 3;
+    @Override
+    public int getDelayFactor() {
+        return delayFactor;
+    }
+
+    @Override
+    public void setDelayFactor(int delayFactor) {
+        this.delayFactor = delayFactor;
     }
 }

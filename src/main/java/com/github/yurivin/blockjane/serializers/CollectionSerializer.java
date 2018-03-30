@@ -44,7 +44,7 @@ public class CollectionSerializer implements iBlockSerializer {
         for(int i=1; i < blocks.size(); i++) {
             iBlock currentBlock = blocks.get(i);
             //compare registered hash and calculated hash:
-            if(!currentBlock.getHash().equals(currentBlock.getEnv().consensus.proof()) ){
+            if(!currentBlock.getHash().equals(currentBlock.getEnv().proofType.proof()) ){
                 log.error("Current Hashes not equal for block id: " + currentBlock.getHash());
                 return false;
             }

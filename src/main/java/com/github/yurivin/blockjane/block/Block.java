@@ -19,7 +19,7 @@ public class Block implements iBlock {
         this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousBlock = null;
-        this.hash = env.consensus.proof();
+        this.hash = env.proofType.proof();
         this.id = 1L;
     }
 
@@ -28,7 +28,7 @@ public class Block implements iBlock {
         this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousBlock = previousBlock;
-        this.hash = previousBlock.getEnv().consensus.proof();
+        this.hash = previousBlock.getEnv().proofType.proof();
         this.id = previousBlock.getId() + 1;
     }
 
@@ -37,8 +37,8 @@ public class Block implements iBlock {
         this.timeStamp = new Date().getTime();
         this.data = data;
         this.previousBlock = previousBlock;
-        env.consensus.setBlockData(data);
-        this.hash = env.consensus.proof();
+        env.proofType.setBlockData(data);
+        this.hash = env.proofType.proof();
         this.id = previousBlock.getId() + 1;
     }
 
@@ -51,6 +51,8 @@ public class Block implements iBlock {
     @JsonIgnore
     private final Environment env;
     private final List<iTransaction> transactions = new ArrayList<>();
+    private String transactionsBatchHash;
+    private boolean transactionBatchHashIsSet;
 
 
     @Override
@@ -76,5 +78,16 @@ public class Block implements iBlock {
     @Override
     public List<iTransaction> getTransactions() {
         return transactions;
+    }
+
+    @Override
+    public String getTransactionsBatchHash() {
+        return transactionsBatchHash;
+    }
+
+    @Override
+    public void setTransactionsBatchHash(String batchHash) {
+        this.transactionsBatchHash = batchHash;
+        transactionBatchHashIsSet = true;
     }
 }
