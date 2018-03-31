@@ -5,7 +5,7 @@ import com.github.yurivin.blockjane.transaction.inoutmodel.InOutTransaction;
 import com.github.yurivin.blockjane.transaction.inoutmodel.TransactionInput;
 import com.github.yurivin.blockjane.transaction.iTransaction;
 import com.github.yurivin.blockjane.transaction.iTransactionInput;
-import com.github.yurivin.blockjane.transaction.iPendingTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +42,7 @@ public class PublicKeyWallet  implements iWallet {
     /**
      * Only UTXOs owned by this wallet.
      */
-    private final Map<String, iPendingTransaction> UTXOs = new HashMap<>();
+    private final Map<String, iTransactionOutput> UTXOs = new HashMap<>();
 
 
     /**
@@ -57,8 +57,8 @@ public class PublicKeyWallet  implements iWallet {
         List<iTransactionInput> inputs = new ArrayList<>();
 
         BigDecimal total = new BigDecimal("0");
-        for (Map.Entry<String, iPendingTransaction> item: UTXOs.entrySet()){
-            iPendingTransaction UTXO = item.getValue();
+        for (Map.Entry<String, iTransactionOutput> item: UTXOs.entrySet()){
+            iTransactionOutput UTXO = item.getValue();
             total.add(UTXO.getAmount());
             inputs.add(new TransactionInput(UTXO.getId()));
             if(total.compareTo(value) == 1) break;
@@ -77,8 +77,8 @@ public class PublicKeyWallet  implements iWallet {
     @Override
     public BigDecimal getBalance() {
         BigDecimal total = new BigDecimal("0");
-        for (Map.Entry<String, iPendingTransaction> item: env.blockchain.getPendingTransactions().entrySet()){
-            iPendingTransaction UTXO = item.getValue();
+        for (Map.Entry<String, iTransactionOutput> item: env.blockchain.getPendingTransactions().entrySet()){
+            iTransactionOutput UTXO = item.getValue();
             if(UTXO.isAssignedTo(publicKey)) { //if output belongs to me ( if coins belong to me )
                 UTXOs.put(UTXO.getId(),UTXO); //add it to our list of unspent transactions.
                 total.add(UTXO.getAmount());

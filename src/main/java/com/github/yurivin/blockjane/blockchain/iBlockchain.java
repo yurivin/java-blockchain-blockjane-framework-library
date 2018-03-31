@@ -3,7 +3,7 @@ package com.github.yurivin.blockjane.blockchain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.transaction.iPendingTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 
 import java.util.Map;
 
@@ -38,5 +38,5 @@ public interface iBlockchain {
      * get transactions awaiting inclusion in to block
      * @return
      */
-    Map<String, iPendingTransaction> getPendingTransactions();
+    Map<String, iTransactionOutput> getPendingTransactions();
 }

@@ -6,7 +6,7 @@ import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.block.GenesisBlock;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.transaction.iPendingTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +39,7 @@ public class SimpleBlockchain implements iBlockchain {
     /**
      * List of all unspent transactions.
      */
-    private final Map<String, iPendingTransaction> UTXOs = new HashMap<>();
+    private final Map<String, iTransactionOutput> UTXOs = new HashMap<>();
 
 
     public SimpleBlockchain() {
@@ -105,7 +105,7 @@ public class SimpleBlockchain implements iBlockchain {
     }
 
     @Override
-    public Map<String, iPendingTransaction> getPendingTransactions() {
+    public Map<String, iTransactionOutput> getPendingTransactions() {
         return UTXOs;
     }
 

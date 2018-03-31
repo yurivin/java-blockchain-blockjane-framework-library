@@ -1,7 +1,7 @@
 package com.github.yurivin.blockjane.transaction.inoutmodel;
 
 import com.github.yurivin.blockjane.transaction.iTransactionInput;
-import com.github.yurivin.blockjane.transaction.iPendingTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +22,7 @@ public class TransactionInput implements iTransactionInput {
      * Your wallets balance is the sum of all the unspent transaction outputs addressed to you.
      * Follow bitcoins convention and call unspent transaction outputs: UTXO
      */
-    private iPendingTransaction UTXO;
+    private iTransactionOutput UTXO;
     /**
      * Check that this UTXO was not set earlier;
      */
@@ -38,12 +38,12 @@ public class TransactionInput implements iTransactionInput {
     }
 
     @Override
-    public iPendingTransaction getUTXO() {
+    public iTransactionOutput getUTXO() {
         return UTXO;
     }
 
     @Override
-    public void setUTXO(iPendingTransaction UTXO) {
+    public void setUTXO(iTransactionOutput UTXO) {
         if (!isUTXOsetOnce) {
             this.UTXO = UTXO;
         } else {
