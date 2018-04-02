@@ -2,6 +2,8 @@ package com.github.yurivin.blockjane.transaction;
 
 import java.math.BigDecimal;
 import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.util.List;
 
 public interface iTransaction {
 
@@ -24,4 +26,19 @@ public interface iTransaction {
      * @return
      */
     boolean processTransaction();
+
+    /**
+     * Method to get/add UTXO's
+     * @return
+     */
+    List<iPendingTransaction> getOutputs();
+
+    PublicKey getSender();
+
+    PublicKey getRecipient();
+
+    BigDecimal getAmount();
+
+    String getTransactionId();
+
 }

@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.security.Security;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TestTransactions {
 
@@ -30,12 +32,13 @@ public class TestTransactions {
         iWallet walletB = new PublicKeyWallet(env);
         iWallet coinbase = new PublicKeyWallet(env);
 
+        Map<String,iTransactionOutput> UTXOs = new HashMap<>();
+
+
         //create genesis transaction, which sends 100 NoobCoin to walletA:
-        /*iTransaction genesisTransaction = new InOutTransaction(coinbase, walletA.getPublicKey(), new BigDecimal("100"), null, env);
-        iTransaction genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction
-        iTransaction genesisTransaction.transactionId = "0"; //manually set the transaction id
-        iTransaction genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.reciepient, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
-        UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.
+        iTransaction genesisTransaction = new InOutTransaction(coinbase, walletA.getPublicKey(), new BigDecimal("100"), null, env);
+        genesisTransaction.getOutputs().add(new TransactionOutput(genesisTransaction.getRecipient(), genesisTransaction.getAmount(), genesisTransaction.getTransactionId(), env)); //manually add the Transactions Output
+        UTXOs.put(genesisTransaction.getOutputs().get(0).getId(), genesisTransaction.getOutputs().get(0)); //its important to store our first transaction in the UTXOs list.
 
         System.out.println("Creating and Mining Genesis block... ");
         iBlock genesis = new Block("0");
@@ -62,6 +65,6 @@ public class TestTransactions {
         System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
         block3.addTransaction(walletB.sendFunds( walletA.publicKey, 20));
         System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-        System.out.println("WalletB's balance is: " + walletB.getBalance());*/
+        System.out.println("WalletB's balance is: " + walletB.getBalance());
     }
 }
