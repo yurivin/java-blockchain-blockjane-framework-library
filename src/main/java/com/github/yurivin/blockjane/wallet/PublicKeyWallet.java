@@ -66,7 +66,8 @@ public class PublicKeyWallet  implements iWallet {
             if(total.compareTo(amount) == 1) break;
         }
 
-        iTransaction newTransaction = new InOutTransaction(this, recipient , amount, inputs, env);
+        iTransaction newTransaction = new InOutTransaction(this, recipient , amount, env);
+        newTransaction.getInputs().addAll(inputs);
 
         for(iTransactionInput input: inputs){
             UTXOs.remove(input.getTransactionOutputId());

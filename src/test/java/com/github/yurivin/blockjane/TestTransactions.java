@@ -6,8 +6,10 @@ import com.github.yurivin.blockjane.block.GenesisBlock;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 import com.github.yurivin.blockjane.transaction.iTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionInput;
 import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 import com.github.yurivin.blockjane.transaction.inoutmodel.InOutTransaction;
+import com.github.yurivin.blockjane.transaction.inoutmodel.TransactionInput;
 import com.github.yurivin.blockjane.transaction.inoutmodel.TransactionOutput;
 import com.github.yurivin.blockjane.wallet.PublicKeyWallet;
 import com.github.yurivin.blockjane.wallet.iWallet;
@@ -36,11 +38,12 @@ public class TestTransactions {
         iWallet walletB = new PublicKeyWallet(env);
         iWallet coinbase = new PublicKeyWallet(env);
 
-        Map<String,iTransactionOutput> UTXOs = new HashMap<>();
-
         //create genesis transaction, which sends 100 NoobCoin to walletA:
-        iTransaction genesisTransaction = new InOutTransaction(coinbase, walletA.getPublicKey(), new BigDecimal("100"), null, env);
-        genesisTransaction.getOutputs().add(new TransactionOutput(genesisTransaction.getRecipient(), genesisTransaction.getAmount(), genesisTransaction.getTransactionId(), env)); //manually add the Transactions Output
+        iTransaction genesisTransaction = new InOutTransaction(coinbase, walletA.getPublicKey(), new BigDecimal("100"), env);
+        iTransactionOutput output = new TransactionOutput(walletA.getPublicKey(), new BigDecimal("100"), genesisTransaction.getTransactionId(), env);
+        iTransactionInput input = new TransactionInput(output.getId());
+        genesisTransaction.getInputs().add(input);
+        genesisTransaction.getOutputs().add(output); //manually add the Transactions Output
 
         blockJane.addTransaction(genesisTransaction);
         env.blockchain.getTransactionOutputs().put(genesisTransaction.getOutputs().get(0).getId(), genesisTransaction.getOutputs().get(0)); //its important to store our first transaction in the UTXOs list.
@@ -48,7 +51,7 @@ public class TestTransactions {
         blockJane.run();
         Thread.sleep(200);
         blockJane.addTransaction(walletA.sendFunds(walletB.getPublicKey(), new BigDecimal("40")));
-        Thread.sleep(200);
+        Thread.sleep(300);
         blockJane.setRunning(false);
 
 

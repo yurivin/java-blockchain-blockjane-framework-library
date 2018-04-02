@@ -53,12 +53,12 @@ public class SimpleBlockchain implements iBlockchain {
 
     @Override
     public boolean newBlock() throws JsonProcessingException {
-        iBlock newBlock = null;
+        final iBlock newBlock;
         if (lastBlock == null) {
             newBlock = new GenesisBlock(env, "Genesis block data");
         } else {
-            List<iTransaction> transactions = transactionsQueue.stream().limit(maxTransactionsPerBlock).collect(Collectors.toList());
-            newBlock = new Block(transactions, blockDataQueue.poll(), lastBlock, env);
+            newBlock = new Block(blockDataQueue.poll(), lastBlock, env);
+            transactionsQueue.stream().limit(maxTransactionsPerBlock).forEach( t -> newBlock.addTransaction(t));
             log.info("New block created: " + env.mapper.writeValueAsString(newBlock));
         }
         lastBlock = newBlock;

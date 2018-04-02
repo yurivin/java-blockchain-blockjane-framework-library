@@ -40,4 +40,5 @@ public interface iTransaction {
 
     String getTransactionId();
 
+    List<iTransactionInput> getInputs();
 }

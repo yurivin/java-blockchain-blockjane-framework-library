@@ -3,7 +3,6 @@ package com.github.yurivin.blockjane.block;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 import com.github.yurivin.blockjane.transaction.iTransaction;
-import kotlin.collections.EmptyList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +21,6 @@ public class Block implements iBlock {
         this.previousBlock = null;
         this.hash = env.proofType.proof();
         this.id = 1L;
-        this.transactions = new ArrayList<>();
     }
 
     public Block(String data, iBlock previousBlock) {
@@ -32,10 +30,9 @@ public class Block implements iBlock {
         this.previousBlock = previousBlock;
         this.hash = previousBlock.getEnv().proofType.proof();
         this.id = previousBlock.getId() + 1;
-        this.transactions = new ArrayList<>();
     }
 
-    public Block(List<iTransaction> transactions, String data, iBlock previousBlock, Environment env) {
+    public Block(String data, iBlock previousBlock, Environment env) {
         this.env = env != null ? env : previousBlock.getEnv();
         this.timeStamp = new Date().getTime();
         this.data = data;
@@ -43,7 +40,6 @@ public class Block implements iBlock {
         env.proofType.setBlockData(data);
         this.hash = env.proofType.proof();
         this.id = previousBlock.getId() + 1;
-        this.transactions = transactions;
     }
 
     private final Long id;
@@ -55,7 +51,7 @@ public class Block implements iBlock {
     @JsonIgnore
     private final Environment env;
     @JsonIgnore
-    private final List<iTransaction> transactions;
+    private final List<iTransaction> transactions = new ArrayList<>();
     private String transactionsBatchHash;
     private boolean transactionBatchHashIsSet;
 
@@ -111,7 +107,7 @@ public class Block implements iBlock {
             }
         }
         transactions.add(transaction);
-        System.out.println("Transaction Successfully added to Block");
+        log.info("Transaction Successfully added to Block. Amount={}", transaction.getAmount());
         return true;
     }
 

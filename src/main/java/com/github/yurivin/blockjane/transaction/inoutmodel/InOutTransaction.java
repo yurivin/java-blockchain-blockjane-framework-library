@@ -40,11 +40,11 @@ public class InOutTransaction implements iTransaction {
      */
     public final byte[] signature;
 
-    public List<iTransactionInput> inputs;
+    public List<iTransactionInput> inputs = new ArrayList<>();
     public List<iTransactionOutput> outputs = new ArrayList<>();
 
     // Constructor:
-    public InOutTransaction(iWallet from, PublicKey to, BigDecimal amount, List<iTransactionInput> inputs, Environment env) {
+    public InOutTransaction(iWallet from, PublicKey to, BigDecimal amount, Environment env) {
         this.sender = from.getPublicKey();
         this.recipient = to;
         this.amount = amount;
@@ -170,5 +170,9 @@ public class InOutTransaction implements iTransaction {
     @Override
     public String getTransactionId() {
         return transactionId;
+    }
+    @Override
+    public List<iTransactionInput> getInputs() {
+        return inputs;
     }
 }

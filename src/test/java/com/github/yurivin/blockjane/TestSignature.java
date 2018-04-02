@@ -21,7 +21,7 @@ public class TestSignature {
         iWallet walletA = new PublicKeyWallet(env);
         iWallet walletB = new PublicKeyWallet(env);
         //Create a test transaction from WalletA to walletB
-        InOutTransaction transaction = new InOutTransaction(walletA, walletB.getPublicKey(), new BigDecimal("5"), null, new Environment());
+        InOutTransaction transaction = new InOutTransaction(walletA, walletB.getPublicKey(), new BigDecimal("5"), new Environment());
         //Verify the signature works and verify it from the public key
         Assert.assertTrue(transaction.verifiySignature());
     }
