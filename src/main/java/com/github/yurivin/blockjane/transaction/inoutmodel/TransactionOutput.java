@@ -1,7 +1,7 @@
 package com.github.yurivin.blockjane.transaction.inoutmodel;
 
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.transaction.iPendingTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 
 import static com.github.yurivin.blockjane.utils.StringUtils.getStringFromKey;
 
@@ -9,7 +9,7 @@ import static com.github.yurivin.blockjane.utils.StringUtils.getStringFromKey;
 import java.math.BigDecimal;
 import java.security.PublicKey;
 
-public class TransactionOutput implements iPendingTransaction {
+public class TransactionOutput implements iTransactionOutput {
 
     private final String id;
     private final PublicKey recipient; //the amount of coins they own

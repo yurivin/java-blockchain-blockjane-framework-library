@@ -20,4 +20,5 @@ public interface iBlock {
      * @param batchHash
      */
     void setTransactionsBatchHash(String batchHash);
+    boolean addTransaction(iTransaction transaction);
 }

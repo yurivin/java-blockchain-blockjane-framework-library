@@ -1,7 +1,7 @@
 package com.github.yurivin.blockjane.transaction.inoutmodel;
 
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.transaction.iPendingTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 import com.github.yurivin.blockjane.transaction.iTransaction;
 import com.github.yurivin.blockjane.transaction.iTransactionInput;
 import com.github.yurivin.blockjane.wallet.iWallet;
@@ -41,7 +41,7 @@ public class InOutTransaction implements iTransaction {
     public final byte[] signature;
 
     public List<iTransactionInput> inputs;
-    public List<iPendingTransaction> outputs = new ArrayList<>();
+    public List<iTransactionOutput> outputs = new ArrayList<>();
 
     // Constructor:
     public InOutTransaction(iWallet from, PublicKey to, BigDecimal amount, List<iTransactionInput> inputs, Environment env) {
@@ -98,7 +98,7 @@ public class InOutTransaction implements iTransaction {
 
         //gather transaction inputs (Make sure they are unspent):
         for (iTransactionInput input : inputs) {
-            input.setUTXO(env.blockchain.getPendingTransactions().get(input.getTransactionOutputId()));
+            input.setUTXO(env.blockchain.getTransactionOutputs().get(input.getTransactionOutputId()));
         }
 
         //check if transaction is valid having amount bigger than minimum for blockchain:
@@ -113,14 +113,14 @@ public class InOutTransaction implements iTransaction {
         outputs.add(new TransactionOutput(this.sender, leftOver, transactionId, env)); //send the left over 'change' back to sender
 
         //add outputs to Unspent list
-        for (iPendingTransaction output : outputs) {
-            env.blockchain.getPendingTransactions().put(output.getId(), output);
+        for (iTransactionOutput output : outputs) {
+            env.blockchain.getTransactionOutputs().put(output.getId(), output);
         }
 
         //remove transaction inputs from UTXO lists as spent:
         for (iTransactionInput input : inputs) {
             if (input.getUTXO() == null) continue; //if Transaction can't be found skip it
-            env.blockchain.getPendingTransactions().remove(input.getUTXO().getId());
+            env.blockchain.getTransactionOutputs().remove(input.getUTXO().getId());
         }
 
         return true;
@@ -145,14 +145,14 @@ public class InOutTransaction implements iTransaction {
     @Override
     public BigDecimal getOutputsValue() {
         BigDecimal total = new BigDecimal("0");
-        for (iPendingTransaction o : outputs) {
+        for (iTransactionOutput o : outputs) {
             total.add(o.getAmount());
         }
         return total;
     }
 
     @Override
-    public List<iPendingTransaction> getOutputs() {
+    public List<iTransactionOutput> getOutputs() {
         return outputs;
     }
     @Override

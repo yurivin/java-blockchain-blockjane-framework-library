@@ -1,11 +1,12 @@
 package com.github.yurivin.blockjane.wallet;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 import com.github.yurivin.blockjane.transaction.inoutmodel.InOutTransaction;
 import com.github.yurivin.blockjane.transaction.inoutmodel.TransactionInput;
 import com.github.yurivin.blockjane.transaction.iTransaction;
 import com.github.yurivin.blockjane.transaction.iTransactionInput;
-import com.github.yurivin.blockjane.transaction.iPendingTransaction;
+import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,29 +43,30 @@ public class PublicKeyWallet  implements iWallet {
     /**
      * Only UTXOs owned by this wallet.
      */
-    private final Map<String, iPendingTransaction> UTXOs = new HashMap<>();
+    private final Map<String, iTransactionOutput> UTXOs = new HashMap<>();
 
 
     /**
      *     Generates and returns a new transaction from this wallet.
      */
-    public iTransaction sendFunds(PublicKey recipient, BigDecimal value ) {
-        if(getBalance().compareTo(value) == -1) { //gather balance and check funds.
-            System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
+    @Override
+    public iTransaction sendFunds(PublicKey recipient, BigDecimal amount ) throws JsonProcessingException {
+        if(getBalance().compareTo(amount) == -1) { //gather balance and check funds.
+            log.warn("Not Enough funds to send transaction. Transaction Discarded. Transaction: amount={}, recipient publicKey={}",amount.toString(), recipient.toString());
             return null;
         }
         //create array list of inputs
         List<iTransactionInput> inputs = new ArrayList<>();
 
         BigDecimal total = new BigDecimal("0");
-        for (Map.Entry<String, iPendingTransaction> item: UTXOs.entrySet()){
-            iPendingTransaction UTXO = item.getValue();
+        for (Map.Entry<String, iTransactionOutput> item: UTXOs.entrySet()){
+            iTransactionOutput UTXO = item.getValue();
             total.add(UTXO.getAmount());
             inputs.add(new TransactionInput(UTXO.getId()));
-            if(total.compareTo(value) == 1) break;
+            if(total.compareTo(amount) == 1) break;
         }
 
-        iTransaction newTransaction = new InOutTransaction(this, recipient , value, inputs, env);
+        iTransaction newTransaction = new InOutTransaction(this, recipient , amount, inputs, env);
 
         for(iTransactionInput input: inputs){
             UTXOs.remove(input.getTransactionOutputId());
@@ -77,8 +79,8 @@ public class PublicKeyWallet  implements iWallet {
     @Override
     public BigDecimal getBalance() {
         BigDecimal total = new BigDecimal("0");
-        for (Map.Entry<String, iPendingTransaction> item: env.blockchain.getPendingTransactions().entrySet()){
-            iPendingTransaction UTXO = item.getValue();
+        for (Map.Entry<String, iTransactionOutput> item: env.blockchain.getTransactionOutputs().entrySet()){
+            iTransactionOutput UTXO = item.getValue();
             if(UTXO.isAssignedTo(publicKey)) { //if output belongs to me ( if coins belong to me )
                 UTXOs.put(UTXO.getId(),UTXO); //add it to our list of unspent transactions.
                 total.add(UTXO.getAmount());
