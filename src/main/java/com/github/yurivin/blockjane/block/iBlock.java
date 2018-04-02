@@ -7,4 +7,5 @@ public interface iBlock {
     String getHash();
     Environment getEnv();
     Long getId();
+    iBlock getPreviousBlock();
 }

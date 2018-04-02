@@ -6,15 +6,18 @@ import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.block.GenesisBlock;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-@Slf4j
 public class SimpleBlockchain implements iBlockchain {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     private ObjectMapper mapper = new ObjectMapper();
 
     /**

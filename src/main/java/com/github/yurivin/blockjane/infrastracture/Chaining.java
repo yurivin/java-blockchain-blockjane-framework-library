@@ -1,10 +1,12 @@
 package com.github.yurivin.blockjane.infrastracture;
 
 import com.github.yurivin.blockjane.BlockJane;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class Chaining implements Runnable {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private BlockJane blockJane;
 

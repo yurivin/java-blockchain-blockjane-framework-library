@@ -1,12 +1,15 @@
 package com.github.yurivin.blockjane.consensus;
 
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
-@Slf4j
 public class PoWConsensus implements iConsensus {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
 
     /**
      * The "nonce"  field whose value is set so that the hash of the block will contain a run of leading zeros.

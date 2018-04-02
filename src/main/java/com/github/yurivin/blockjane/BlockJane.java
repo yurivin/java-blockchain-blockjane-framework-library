@@ -2,12 +2,12 @@ package com.github.yurivin.blockjane;
 
 import com.github.yurivin.blockjane.infrastracture.Chaining;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Data
-@Slf4j
 public class BlockJane {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private boolean running;
     private final Environment env;
@@ -29,4 +29,15 @@ public class BlockJane {
         env.blockchain.addBlockData(data);
     }
 
+    public boolean isRunning() {
+        return running;
+    }
+
+    public Environment getEnv() {
+        return env;
+    }
+
+    public void stop() {
+        running = false;
+    }
 }

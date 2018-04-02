@@ -22,7 +22,7 @@ public class TestBlockJane {
         blockJane.addBlockData("Test block data");
         blockJane.addBlockData("Other test block data");
         Thread.sleep(200);
-        blockJane.setRunning(false);
+        blockJane.stop();
         Assert.assertNotNull(blockJane.getEnv().blockchain.getLastBlock());
         Assert.assertTrue(blockJane.getEnv().blockchain.isCachedChainValid());
     }
