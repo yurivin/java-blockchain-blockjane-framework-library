@@ -3,6 +3,7 @@ package com.github.yurivin.blockjane.blockchain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
+import com.github.yurivin.blockjane.transaction.iTransaction;
 import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 
 import java.util.Map;
@@ -38,5 +39,18 @@ public interface iBlockchain {
      * get transactions awaiting inclusion in to block
      * @return
      */
-    Map<String, iTransactionOutput> getPendingTransactions();
+    Map<String, iTransactionOutput> getTransactionOutputs();
+
+    boolean addTransaction(iTransaction transaction);
+    /**
+     * Maximum of transactions per block.
+     * @return
+     */
+    int getMaxTransactionsPerBlock();
+    /**
+     * Maximum of transactions per block.
+     * @return
+     */
+    void setMaxTransactionsPerBlock(int maxTransactions);
+
 }

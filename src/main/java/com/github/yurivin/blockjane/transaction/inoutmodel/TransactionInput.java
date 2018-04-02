@@ -1,5 +1,7 @@
 package com.github.yurivin.blockjane.transaction.inoutmodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.yurivin.blockjane.infrastracture.Environment;
 import com.github.yurivin.blockjane.transaction.iTransactionInput;
 import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 import org.slf4j.Logger;
@@ -9,7 +11,8 @@ import org.slf4j.LoggerFactory;
  * Transaction inputs are references to previous transaction outputs.
  */
 public class TransactionInput implements iTransactionInput {
-
+    @JsonIgnore
+    private Environment env;
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     /**

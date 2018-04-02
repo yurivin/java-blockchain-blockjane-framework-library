@@ -6,18 +6,18 @@ import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.block.GenesisBlock;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
+import com.github.yurivin.blockjane.transaction.iTransaction;
 import com.github.yurivin.blockjane.transaction.iTransactionOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
 
 public class SimpleBlockchain implements iBlockchain {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
-
-    private ObjectMapper mapper = new ObjectMapper();
 
     /**
      * This property should be not accessible out from this class.
@@ -41,10 +41,14 @@ public class SimpleBlockchain implements iBlockchain {
      */
     private final Map<String, iTransactionOutput> UTXOs = new HashMap<>();
 
+    private Queue<iTransaction> transactionsQueue = new ConcurrentLinkedQueue<>();
+
 
     public SimpleBlockchain() {
         this.blocksCache = new ArrayList<>();
     }
+
+    private volatile int maxTransactionsPerBlock = 1;
 
 
     @Override
@@ -53,8 +57,9 @@ public class SimpleBlockchain implements iBlockchain {
         if (lastBlock == null) {
             newBlock = new GenesisBlock(env, "Genesis block data");
         } else {
-            newBlock = new Block(blockDataQueue.poll(), lastBlock, env);
-            log.info("New block created: " + mapper.writeValueAsString(newBlock));
+            List<iTransaction> transactions = transactionsQueue.stream().limit(maxTransactionsPerBlock).collect(Collectors.toList());
+            newBlock = new Block(transactions, blockDataQueue.poll(), lastBlock, env);
+            log.info("New block created: " + env.mapper.writeValueAsString(newBlock));
         }
         lastBlock = newBlock;
         blocksCache.add(newBlock);
@@ -105,9 +110,22 @@ public class SimpleBlockchain implements iBlockchain {
     }
 
     @Override
-    public Map<String, iTransactionOutput> getPendingTransactions() {
+    public Map<String, iTransactionOutput> getTransactionOutputs() {
         return UTXOs;
     }
 
+    @Override
+    public boolean addTransaction(iTransaction transaction) {
+        return transactionsQueue.add(transaction);
+    }
+
+    @Override
+    public int getMaxTransactionsPerBlock() {
+        return maxTransactionsPerBlock;
+    }
+    @Override
+    public void setMaxTransactionsPerBlock(int maxTransactions) {
+        this.maxTransactionsPerBlock = maxTransactions;
+    }
 
 }

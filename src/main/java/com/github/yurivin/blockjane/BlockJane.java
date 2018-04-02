@@ -2,6 +2,7 @@ package com.github.yurivin.blockjane;
 
 import com.github.yurivin.blockjane.infrastracture.Chaining;
 import com.github.yurivin.blockjane.infrastracture.Environment;
+import com.github.yurivin.blockjane.transaction.iTransaction;
 import com.github.yurivin.blockjane.wallet.iWallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class BlockJane {
     private final Environment env;
 
     public BlockJane(Environment env) {
-        if(env == null) {
+        if (env == null) {
             throw new IllegalStateException("BlockJane environment should be not null");
         }
         this.env = env;
@@ -33,6 +34,13 @@ public class BlockJane {
         env.blockchain.addBlockData(data);
     }
 
+    public boolean addTransaction(iTransaction transaction) {
+        if (transaction != null)
+            return env.blockchain.addTransaction(transaction);
+        else
+            return false;
+    }
+
     public iWallet getWallet(PublicKey publicKey) {
         return env.wallets.get(publicKey);
     }
@@ -40,7 +48,7 @@ public class BlockJane {
     public iWallet createWallet() {
         try {
             Method m = env.walletType.getMethod("instantiate", Environment.class);
-            return (iWallet)m.invoke(null,env);
+            return (iWallet) m.invoke(null, env);
         } catch (Exception e) {
             throw new RuntimeException("Error creating wallet", e);
         }
