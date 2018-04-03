@@ -58,4 +58,16 @@ Using the right tools :
 5. HyperLedger sawtooth (blockchain with smart contract support): https://sawtooth.hyperledger.org/docs/core/releases/latest/introduction.html
 6. Bouncey castle cryptographic library (Java library): https://www.bouncycastle.org/latest_releases.html
 
+### Theoretical rescources
+1. Bitcoin: https://bitcoin.org/bitcoin.pdf Why: Introduces the first decentralized cryptocurrency to solve the double-spend problem, introduces the UTXO system.
 
+2. Ethereum: https://github.com/ethereum/wiki/wiki/White-Paper Why: Introduces account based system, unlike Bitcoin's UTXO system, and introduces turing complete smart contracts on-chain.
+
+3. PeerCoin: https://peercoin.net/assets/paper/peercoin-paper.pdf Why: Arguably the first coin to introduce Proof of Stake as an alternative to Proof of Work for distributed consensus.
+
+4. BitShares: https://bitshares.org/technology/delegated-proof-of-stake-consensus/ Why: First coin (that I know of) to use delegated Proof of Stake consensus
+
+5. "First" Mention of Proof of Stake: https://bitcointalk.org/index.php?topic=27787.0 Why:
+Shows the original idea of PoS and its criticisms and benefits
+
+6. https://raiblocks.net/media/RaiBlocks_Whitepaper__English.pdf - multy blockchain account systems
