@@ -42,6 +42,7 @@ BlocJane ia a Java Blockchain library created for flexible and fast blockchain d
 8. Java Blockchain Example: https://github.com/TechPrimers/java-blockchain-example
 9. Blockchain chaincode for Java developers from IBM: https://www.ibm.com/developerworks/library/j-chaincode-for-java-developers/j-chaincode-for-java-developers-pdf.pdf
 10. SimpleBlockchain C#: https://github.com/thabart/SimpleBlockChain 
+11. Java implementation of the Ethereum yellowpaper. https://github.com/ethereum/ethereumj
 
 ### Smart contracts
 1. Hello world Smart contract (Solidity tutorial): https://www.ethereum.org/greeter
