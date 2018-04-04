@@ -10,7 +10,7 @@ buildscript {
 }
 
 group 'github.com.yurivin.java.blockchain.blockjane'
-version '1.0.0'
+version '0.1.1'
 
 apply plugin: 'groovy'
 apply plugin: 'java'
