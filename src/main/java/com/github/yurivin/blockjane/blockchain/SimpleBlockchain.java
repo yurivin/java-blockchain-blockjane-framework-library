@@ -6,11 +6,12 @@ import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.block.GenesisBlock;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.transaction.iPendingTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SimpleBlockchain implements iBlockchain {
@@ -36,10 +37,6 @@ public class SimpleBlockchain implements iBlockchain {
      * Queue of data to add in to new blocks;
      */
     private Queue<String> blockDataQueue = new ConcurrentLinkedQueue<>();
-    /**
-     * List of all unspent transactions.
-     */
-    private final Map<String, iPendingTransaction> UTXOs = new HashMap<>();
 
 
     public SimpleBlockchain() {
@@ -102,11 +99,6 @@ public class SimpleBlockchain implements iBlockchain {
     @Override
     public void addBlockData(String data) {
         blockDataQueue.add(data);
-    }
-
-    @Override
-    public Map<String, iPendingTransaction> getPendingTransactions() {
-        return UTXOs;
     }
 
 

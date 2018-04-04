@@ -1,14 +1,16 @@
 package com.github.yurivin.blockjane;
 
+import com.github.yurivin.blockjane.identity.PublicKeyIdentity;
+import com.github.yurivin.blockjane.identity.iIdentity;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.transaction.inoutmodel.InOutTransaction;
-import com.github.yurivin.blockjane.wallet.PublicKeyWallet;
-import com.github.yurivin.blockjane.wallet.iWallet;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.security.*;
+import java.security.PublicKey;
+import java.security.Security;
+
+import static com.github.yurivin.blockjane.utils.StringUtils.getStringFromKey;
 
 public class TestSignature {
 
@@ -17,12 +19,17 @@ public class TestSignature {
         Environment env = new Environment();
         //Setup Bouncey castle as a Security Provider
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-        //Create the new wallets
-        iWallet walletA = new PublicKeyWallet(env);
-        iWallet walletB = new PublicKeyWallet(env);
-        //Create a test transaction from WalletA to walletB
-        InOutTransaction transaction = new InOutTransaction(walletA, walletB.getPublicKey(), new BigDecimal("5"), null, new Environment());
+        //Create the new identities
+        iIdentity walletA = new PublicKeyIdentity(env);
+        iIdentity walletB = new PublicKeyIdentity(env);
+        String data = "15";
+        byte[] signature = walletA.generateSignature(data, walletB.getPublicKey());
         //Verify the signature works and verify it from the public key
-        Assert.assertTrue(transaction.verifiySignature());
+        Assert.assertTrue(verifiySignature(signature, data, walletA.getPublicKey(), walletB.getPublicKey(), env));
+    }
+
+    public boolean verifiySignature(byte[] signature, String data, PublicKey sender, PublicKey recipient,Environment env) {
+        data = getStringFromKey(sender) + getStringFromKey(recipient) + data;
+        return env.signature.verify(sender, data, signature);
     }
 }

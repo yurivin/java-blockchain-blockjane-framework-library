@@ -1,11 +1,11 @@
-package com.github.yurivin.blockjane.hash.batchhash;
+package com.github.yurivin.blockjane.hash.multihash;
 
 import com.github.yurivin.blockjane.infrastracture.Environment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MerkleRoot implements iBatchHash {
+public class MerkleRoot implements iMultiHash {
 
     public MerkleRoot(Environment env) {
         this.env = env;

@@ -13,8 +13,9 @@ BlocJane ia a Java Blockchain library created for flexible and fast blockchain d
 ## Features
 1. To create a chain of blocks and add a data in every block. Use it as a storage that provides data integrity and historical links to previous blocks.
 2. Validate that data in blockchain is valid and every block is the same as it was created. If one block will be chainged, next blcok will show hash desintegration. Functionality provided by
-3. Crete multiple wallets for one node. 
-4. Transaction support added. Signature included.
+3. Create Identities with privateKey and publicKey. May be used like wallets or KYC. 
+4. Signature.
+5. MultiHash.
 
 ## TODO list
 1. Make that when we change some blockchain properties Blockchain save info about nes state and time block of changing state. Also save initial state in blockchain. We need this to make possible validation of all blockchain after chaging properties like proofType, hashing algo, nonce and others.

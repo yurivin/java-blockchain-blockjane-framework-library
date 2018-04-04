@@ -2,7 +2,7 @@ package com.github.yurivin.blockjane;
 
 import com.github.yurivin.blockjane.infrastracture.Chaining;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.wallet.iWallet;
+import com.github.yurivin.blockjane.identity.iIdentity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,16 +33,16 @@ public class BlockJane {
         env.blockchain.addBlockData(data);
     }
 
-    public iWallet getWallet(PublicKey publicKey) {
-        return env.wallets.get(publicKey);
+    public iIdentity getWallet(PublicKey publicKey) {
+        return env.identities.get(publicKey);
     }
 
-    public iWallet createWallet() {
+    public iIdentity createWallet() {
         try {
-            Method m = env.walletType.getMethod("instantiate", Environment.class);
-            return (iWallet)m.invoke(null,env);
+            Method m = env.identityType.getMethod("instantiate", Environment.class);
+            return (iIdentity)m.invoke(null,env);
         } catch (Exception e) {
-            throw new RuntimeException("Error creating wallet", e);
+            throw new RuntimeException("Error creating identity", e);
         }
     }
 

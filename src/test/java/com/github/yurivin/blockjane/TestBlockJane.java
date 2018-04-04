@@ -3,9 +3,8 @@ package com.github.yurivin.blockjane;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import com.github.yurivin.blockjane.serializers.CollectionSerializer;
-import com.github.yurivin.blockjane.wallet.PublicKeyWallet;
-import com.github.yurivin.blockjane.wallet.iWallet;
+import com.github.yurivin.blockjane.identity.PublicKeyIdentity;
+import com.github.yurivin.blockjane.identity.iIdentity;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -31,10 +30,10 @@ public class TestBlockJane {
         Assert.assertNotNull(blockJane.getEnv().blockchain.getLastBlock());
         //Assert that chain is valid. All blocks hashes are chained.
         Assert.assertTrue(blockJane.getEnv().blockchain.isCachedChainValid());
-        //Test wallet creation
-        iWallet wallet = blockJane.createWallet();
+        //Test identity creation
+        iIdentity wallet = blockJane.createWallet();
         Assert.assertNotNull(wallet);
-        Assert.assertEquals(wallet.getClass(), PublicKeyWallet.class);
+        Assert.assertEquals(wallet.getClass(), PublicKeyIdentity.class);
     }
 
 }
