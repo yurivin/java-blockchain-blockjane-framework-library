@@ -8,4 +8,5 @@ public interface iBlock {
     Environment getEnv();
     Long getId();
     iBlock getPreviousBlock();
+    String getData();
 }

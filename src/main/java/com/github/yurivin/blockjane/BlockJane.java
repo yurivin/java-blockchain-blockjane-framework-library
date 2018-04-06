@@ -2,8 +2,12 @@ package com.github.yurivin.blockjane;
 
 import com.github.yurivin.blockjane.infrastracture.Chaining;
 import com.github.yurivin.blockjane.infrastracture.Environment;
+import com.github.yurivin.blockjane.identity.iIdentity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Method;
+import java.security.PublicKey;
 
 public class BlockJane {
 
@@ -27,6 +31,19 @@ public class BlockJane {
 
     public void addBlockData(String data) {
         env.blockchain.addBlockData(data);
+    }
+
+    public iIdentity getWallet(PublicKey publicKey) {
+        return env.identities.get(publicKey);
+    }
+
+    public iIdentity createIdentity() {
+        try {
+            Method m = env.identityType.getMethod("instantiate", Environment.class);
+            return (iIdentity)m.invoke(null,env);
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating identity", e);
+        }
     }
 
     public boolean isRunning() {

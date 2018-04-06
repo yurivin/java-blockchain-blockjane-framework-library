@@ -38,6 +38,7 @@ public class SimpleBlockchain implements iBlockchain {
      */
     private Queue<String> blockDataQueue = new ConcurrentLinkedQueue<>();
 
+
     public SimpleBlockchain() {
         this.blocksCache = new ArrayList<>();
     }
@@ -46,7 +47,7 @@ public class SimpleBlockchain implements iBlockchain {
     @Override
     public boolean newBlock() throws JsonProcessingException {
         iBlock newBlock = null;
-        if(lastBlock == null) {
+        if (lastBlock == null) {
             newBlock = new GenesisBlock(env, "Genesis block data");
         } else {
             newBlock = new Block(blockDataQueue.poll(), lastBlock, env);
@@ -60,11 +61,14 @@ public class SimpleBlockchain implements iBlockchain {
     private boolean serialize(iBlock newBlock) {
         boolean serialized = false;
         List<iBlock> toRemoveList = new ArrayList<>();
-        if(blocksCache.size() > 0) {
-            for (iBlock block: blocksCache) {
+        if (blocksCache.size() > 0) {
+            for (iBlock block : blocksCache) {
                 serialized = env.blockSerializer.serialize(newBlock);
-                if(!serialized) { break;}
-                else {toRemoveList.add(block);}
+                if (!serialized) {
+                    break;
+                } else {
+                    toRemoveList.add(block);
+                }
             }
             blocksCache.removeAll(toRemoveList);
         }
@@ -84,6 +88,7 @@ public class SimpleBlockchain implements iBlockchain {
 
     /**
      * Method to check chain integrity.
+     *
      * @return
      */
     @Override

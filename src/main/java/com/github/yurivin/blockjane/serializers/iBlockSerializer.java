@@ -1,6 +1,5 @@
 package com.github.yurivin.blockjane.serializers;
 
-import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.block.iBlock;
 
 import java.util.List;
