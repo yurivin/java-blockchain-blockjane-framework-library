@@ -1,0 +1,8 @@
+import com.github.yurivin.blockjane.contracts.iContract
+
+class TestContract implements iContract {
+    @Override
+    byte[] execute() {
+        return new String("Hello!").getBytes("UTF-8")
+    }
+}

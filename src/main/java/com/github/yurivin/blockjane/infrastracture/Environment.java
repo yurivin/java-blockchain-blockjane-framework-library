@@ -1,5 +1,6 @@
 package com.github.yurivin.blockjane.infrastracture;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yurivin.blockjane.blockchain.SimpleBlockchain;
 import com.github.yurivin.blockjane.blockchain.iBlockchain;
 import com.github.yurivin.blockjane.proof.PoW;
@@ -47,6 +48,7 @@ public class Environment {
     public Long nodeStartupTime = System.currentTimeMillis();
     public UUID nodeStartupUuid = UUID.randomUUID();
     public iSignature signature;
+    public ObjectMapper jsonMapper = new ObjectMapper();
 
     public void setBlockchain(iBlockchain blockchain) {
         this.blockchain = blockchain;

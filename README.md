@@ -16,6 +16,7 @@ BlocJane ia a Java Blockchain library created for flexible and fast blockchain d
 3. Create Identities with privateKey and publicKey. May be used like wallets or KYC. 
 4. Signature.
 5. MultiHash.
+6. SmartContracts execution. Smart contract data saving to block. Saving Smart contracts code to block and loading from there is in progress.
 
 ## TODO list
 1. Make that when we change some blockchain properties Blockchain save info about nes state and time block of changing state. Also save initial state in blockchain. We need this to make possible validation of all blockchain after chaging properties like proofType, hashing algo, nonce and others.
