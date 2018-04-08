@@ -1,5 +1,6 @@
-package com.github.yurivin.blockjane;
+package com.github.yurivin.blockjane.contract;
 
+import com.github.yurivin.blockjane.contracts.ContractLanguage;
 import com.github.yurivin.blockjane.contracts.ContractProcessor;
 import com.github.yurivin.blockjane.contracts.iContractProcessor;
 import com.github.yurivin.blockjane.infrastracture.Environment;
@@ -23,7 +24,7 @@ public class TestContracts {
         Environment env = new Environment();
         iContractProcessor processor = new ContractProcessor(env);
 
-        byte[] result = processor.loadAndRun(groovyClassStr);
+        byte[] result = processor.loadAndRun(groovyClassStr, ContractLanguage.Groovy);
         Assert.assertEquals("Hello!", new String(result, "UTF-8"));
     }
 }

@@ -1,5 +1,6 @@
 package com.github.yurivin.blockjane.block;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 
@@ -10,7 +11,7 @@ public class GenesisBlock extends Block {
      * @param env
      * @param data
      */
-    public GenesisBlock(Environment env, String data) {
+    public GenesisBlock(Environment env, ObjectNode data) {
         super(env, data);
     }
 

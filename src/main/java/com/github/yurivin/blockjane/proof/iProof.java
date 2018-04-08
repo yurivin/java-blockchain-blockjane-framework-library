@@ -8,8 +8,7 @@ public interface iProof {
      * Method should return values which should be
      * @return
      */
-    String proof();
-    void setBlockData(String data);
+    String proof(String blockData);
     void setEnvironment(Environment env);
     /**
      * Get delayFactor.

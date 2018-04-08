@@ -1,5 +1,6 @@
 package com.github.yurivin.blockjane;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.yurivin.blockjane.infrastracture.Chaining;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 import com.github.yurivin.blockjane.identity.iIdentity;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.security.PublicKey;
+import java.util.Map;
 
 public class BlockJane {
 
@@ -29,7 +31,7 @@ public class BlockJane {
         chaining.start();
     }
 
-    public void addBlockData(String data) {
+    public void addBlockData(Map.Entry<String, JsonNode> data) {
         env.blockchain.addBlockData(data);
     }
 

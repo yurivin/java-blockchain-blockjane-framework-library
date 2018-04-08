@@ -15,24 +15,18 @@ public class PoW implements iProof {
      */
     private int nonce;
     private Environment env;
-    private String blockData;
     private volatile int delayFactor = 3;
 
     @Override
-    public String proof() {
+    public String proof(String blockData) {
         String hash = null;
         String target = new String(new char[delayFactor]).replace('\0', '0'); //Create a string with difficulty * "0"
         while (hash == null || !hash.substring(0, delayFactor).equals(target)) {
             nonce++;
-            hash = calculateHash();
+            hash = calculateHash(blockData);
         }
         log.info("Block hash found: " + hash);
         return hash;
-    }
-
-    @Override
-    public void setBlockData(String data) {
-        this.blockData = data;
     }
 
     @Override
@@ -40,14 +34,14 @@ public class PoW implements iProof {
         this.env = env;
     }
 
-    private String calculateHash() {
-        String calculatedHash = "0";
+    private String calculateHash(String blockData) {
+        String calculatedHash;
         if (env.blockchain.getLastBlock() != null) {
             calculatedHash = env.hashAlgo.apply(
                     env.blockchain.getLastBlock().getHash() +
                             Long.toString(new Date().getTime()) +
                             nonce +
-                            blockData
+                            String.valueOf((Object)blockData) //Use this to avoid NullPointerException when data is null.
             );
         } else {
             calculatedHash = env.hashAlgo.apply(

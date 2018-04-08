@@ -1,5 +1,6 @@
 package com.github.yurivin.blockjane.block;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.yurivin.blockjane.infrastracture.Environment;
 
 public interface iBlock {
@@ -8,5 +9,5 @@ public interface iBlock {
     Environment getEnv();
     Long getId();
     iBlock getPreviousBlock();
-    String getData();
+    ObjectNode getData();
 }

@@ -17,7 +17,7 @@ public class Chaining implements Runnable {
     public void run() {
         try {
             while (blockJane.isRunning()) {
-                if (!blockJane.getEnv().blockchain.newBlock()) {
+                if (blockJane.getEnv().blockchain.newBlock() == null) {
                     throw new IllegalStateException("Node is broken. Can't create block");
                 }
             }

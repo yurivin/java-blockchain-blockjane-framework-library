@@ -1,8 +1,11 @@
 package com.github.yurivin.blockjane.blockchain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
+
+import java.util.Map;
 
 public interface iBlockchain {
 
@@ -14,9 +17,9 @@ public interface iBlockchain {
      * but serializes all pending block when it is possible.
      * @return
      */
-    boolean newBlock() throws JsonProcessingException;
+    iBlock newBlock() throws JsonProcessingException;
 
-    Environment setEnvironment(Environment env);
+    void setEnvironment(Environment env);
     iBlock getLastBlock();
 
     /**
@@ -29,5 +32,5 @@ public interface iBlockchain {
      * Method to add data to new block;
      * @param data
      */
-    void addBlockData(String data);
+    void addBlockData(Map.Entry<String, JsonNode> data);
 }

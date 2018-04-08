@@ -1,4 +1,4 @@
-package com.github.yurivin.blockjane;
+package com.github.yurivin.blockjane.signature;
 
 import com.github.yurivin.blockjane.identity.PublicKeyIdentity;
 import com.github.yurivin.blockjane.identity.iIdentity;
