@@ -7,6 +7,8 @@ import com.github.yurivin.blockjane.infrastracture.Environment;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.fail;
+
 public class TestContracts {
 
     final String groovyClassStr = "import com.github.yurivin.blockjane.contracts.iContract\n" +
@@ -19,12 +21,17 @@ public class TestContracts {
             "}";
 
     @Test
-    public void test() throws Exception {
+    public void testLoadAndRun() throws Exception {
 
         Environment env = new Environment();
         iContractProcessor processor = new ContractProcessor(env);
-
         byte[] result = processor.loadAndRun(groovyClassStr, ContractLanguage.Groovy);
         Assert.assertEquals("Hello!", new String(result, "UTF-8"));
+    }
+
+    @Test
+    public void testSaveContractToBlockData() throws Exception {
+
+        fail();
     }
 }
