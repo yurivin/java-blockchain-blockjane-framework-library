@@ -48,8 +48,8 @@ public class ContractProcessor implements iContractProcessor {
 
     /**
      * Adds contract code to block dat as Json field
-     * @param contract - contrct code to execute;
-     * @param language - language in wich contract is written.
+     * @param contract - contract code to execute;
+     * @param language - language in which contract is written.
      * @return
      */
     @Override
