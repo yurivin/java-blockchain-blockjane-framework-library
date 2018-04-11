@@ -8,7 +8,6 @@ import com.github.yurivin.blockjane.block.Block;
 import com.github.yurivin.blockjane.block.GenesisBlock;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.infrastracture.Environment;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +54,7 @@ public class SimpleBlockchain implements iBlockchain {
             ObjectNode data = env.jsonMapper.createObjectNode();
             data.set("genesisData",env.jsonMapper.convertValue("Test block data", JsonNode.class));
             newBlock = new GenesisBlock(env, data);
+            log.info("Genesis block created: " + mapper.writeValueAsString(newBlock));
         } else {
             ObjectNode mainNode = pollBlockDataQueue();
             newBlock = new Block(mainNode, lastBlock, env);
@@ -86,7 +86,7 @@ public class SimpleBlockchain implements iBlockchain {
         List<iBlock> toRemoveList = new ArrayList<>();
         if (blocksCache.size() > 0) {
             for (iBlock block : blocksCache) {
-                serialized = env.blockSerializer.serialize(newBlock);
+                serialized = env.serializer.serialize(newBlock);
                 if (!serialized) {
                     break;
                 } else {
@@ -110,7 +110,7 @@ public class SimpleBlockchain implements iBlockchain {
      */
     @Override
     public Boolean isCachedChainValid() {
-        return env.blockSerializer.isChainValid(blocksCache);
+        return env.serializer.isChainValid(blocksCache);
     }
 
     @Override

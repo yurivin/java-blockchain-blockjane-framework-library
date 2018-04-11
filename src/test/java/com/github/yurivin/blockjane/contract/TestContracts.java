@@ -1,9 +1,5 @@
 package com.github.yurivin.blockjane.contract;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.yurivin.blockjane.block.Block;
-import com.github.yurivin.blockjane.block.GenesisBlock;
 import com.github.yurivin.blockjane.block.iBlock;
 import com.github.yurivin.blockjane.contracts.ContractLanguage;
 import com.github.yurivin.blockjane.contracts.ContractProcessor;
@@ -14,12 +10,10 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.fail;
 
 public class TestContracts {
 
-    final String groovyClassStr = "import com.github.yurivin.blockjane.contracts.iContract\n" +
+    public static final String groovyClassStr = "import com.github.yurivin.blockjane.contracts.iContract\n" +
             "\n" +
             "class TestContract implements iContract {\n" +
             "    @Override\n" +
@@ -28,7 +22,7 @@ public class TestContracts {
             "    }\n" +
             "}";
 
-    final String blockDataWithContract = "{\"contract\":{\"hash\":\"8cb54b149636a9e8e04a6c64d878b9d4f1e72ce09225b9db416029a61036c65e\"," +
+    public static final String blockDataWithContract = "{\"contract\":{\"hash\":\"8cb54b149636a9e8e04a6c64d878b9d4f1e72ce09225b9db416029a61036c65e\"," +
             "\"code\":\"import com.github.yurivin.blockjane.contracts.iContract\\n\\nclass TestContract implements iContract {\\n    " +
             "@Override\\n    byte[] execute() {\\n        return new String(\\\"Hello!\\\").getBytes(\\\"UTF-8\\\")\\n    }\\n}\"," +
             "\"language\":\"Groovy\"}}";

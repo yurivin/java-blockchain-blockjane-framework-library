@@ -8,7 +8,8 @@ import com.github.yurivin.blockjane.proof.iProof;
 import com.github.yurivin.blockjane.hash.SHA256;
 import com.github.yurivin.blockjane.hash.iAlgo;
 import com.github.yurivin.blockjane.serializers.CollectionSerializer;
-import com.github.yurivin.blockjane.serializers.iBlockSerializer;
+import com.github.yurivin.blockjane.serializers.iDeserializer;
+import com.github.yurivin.blockjane.serializers.iSerializer;
 import com.github.yurivin.blockjane.signature.ECDSASignature;
 import com.github.yurivin.blockjane.signature.iSignature;
 import com.github.yurivin.blockjane.identity.PublicKeyIdentity;
@@ -23,25 +24,28 @@ public class Environment {
     public Environment () {
         this.hashAlgo = new SHA256();
         setBlockchain(new SimpleBlockchain());
-        this.blockSerializer = new CollectionSerializer(40);
+        this.serializer = new CollectionSerializer(40);
         this.setProofType(new PoW());
         this.identityType = PublicKeyIdentity.class;
         this.signature = new ECDSASignature();
+        this.deserializer = (iDeserializer) this.serializer;
     }
 
-    public Environment (iAlgo algo, iBlockchain blockchain, iBlockSerializer blockSerializer, iProof proofType,
-                        Class identityType, iSignature signature) {
+    public Environment (iAlgo algo, iBlockchain blockchain, iSerializer serializer, iProof proofType,
+                        Class identityType, iSignature signature, iDeserializer deseriallizer) {
         this.hashAlgo = algo;
         this.blockchain = blockchain;
-        this.blockSerializer = blockSerializer;
+        this.serializer = serializer;
         this.proofType = proofType;
         this.identityType = identityType;
         this.signature = signature;
+        this.deserializer = deseriallizer;
     }
 
     public iAlgo hashAlgo;
     public iBlockchain blockchain;
-    public iBlockSerializer blockSerializer;
+    public iSerializer serializer;
+    public iDeserializer deserializer;
     public iProof proofType;
     public Class identityType;
     public Map<PublicKey,iIdentity> identities;
