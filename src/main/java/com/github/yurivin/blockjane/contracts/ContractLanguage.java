@@ -11,4 +11,13 @@ public enum ContractLanguage {
         this.title = title;
         this.code = code;
     }
+
+    public static ContractLanguage getFromText(String title) {
+        for(ContractLanguage language : ContractLanguage.values()) {
+            if(language.title.intern().equals(title)) {
+                return language;
+            }
+        }
+        return null;
+    }
 }

@@ -2,14 +2,14 @@ package com.github.yurivin.blockjane.serializers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.yurivin.blockjane.block.iBlock;
+import com.github.yurivin.blockjane.contracts.Contract;
+import com.github.yurivin.blockjane.contracts.ContractLanguage;
 import com.github.yurivin.blockjane.exception.InvalidBlockchainStateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CollectionSerializer implements iSerializer, iDeserializer {
 
@@ -80,8 +80,39 @@ public class CollectionSerializer implements iSerializer, iDeserializer {
     }
 
     @Override
-    public ObjectNode getContract(String contractHash) {
-        iBlock contractBlock = serializedBlocks.stream().filter(block -> block.getId().equals(contractPointers.get(contractHash))).findFirst().get();
-        return (ObjectNode) contractBlock.getData().findValue("contract");
+    public Contract getContract(String contractHash) {
+        iBlock block = null;
+        for(iBlock blck : serializedBlocks) {
+            if(blck.getData() != null && blck.getData().findValue("contract") != null) {
+                String hashFromBlock = blck.getData().findValue("contract").get("hash").asText();
+                if(hashFromBlock.contentEquals(contractHash)) {
+                    block = blck;
+                    break;
+                }
+            }
+        }
+        Contract contract = null;
+        if(block != null) {
+            ObjectNode contractNode = (ObjectNode) block.getData().findValue("contract");
+            contract = new Contract(contractNode.findValue("hash").asText(),
+                    contractNode.findValue("code").asText(),
+                    ContractLanguage.getFromText(contractNode.findValue("language").asText()));
+        }
+        return contract;
+    }
+
+    @Override
+    public Long scanChainForContracts(Long startBlockId) {
+        List<iBlock> blocksWithContracts = serializedBlocks.parallelStream()
+                .filter( block -> block.getData().findValue("contract") != null)
+                .collect(Collectors.toList());
+        Long lastScannedBlockId = null;
+        for(iBlock block : blocksWithContracts) {
+            if(block.getData().findValue("contract") != null) {
+                contractPointers.put(block.getData().findValue("contract").get("hash").toString(), block.getId());
+            }
+            lastScannedBlockId = block.getId();
+        }
+        return lastScannedBlockId;
     }
 }
