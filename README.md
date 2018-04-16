@@ -59,4 +59,7 @@ Using the right tools :
 5. HyperLedger sawtooth (blockchain with smart contract support): https://sawtooth.hyperledger.org/docs/core/releases/latest/introduction.html
 6. Bouncey castle cryptographic library (Java library): https://www.bouncycastle.org/latest_releases.html
 
+### p2p Architecture
+1. https://bitcoin.stackexchange.com/questions/67335/how-is-bitcoin-transactions-and-the-blockchain-as-a-whole-transferred-over-the-i
+
 

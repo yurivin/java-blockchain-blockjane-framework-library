@@ -6,6 +6,12 @@
 +   1.3 Saving Contract to the block with contract code hash as id of contract. In Json object field called contract
 +   1.4 Scan blocks and Create contracts pointer in the local database to run when needed. 
 +       1.4.1 Serializer and Deserializer methods to handle contracts saving. with tests.
+-   1.5 Create support for other languages
++       1.5.1 Groovy
+-       1.5.2 Kotlin
+- 2. p2p network
+-   2.1 Create p2p Interface
+
 
 
 Other
